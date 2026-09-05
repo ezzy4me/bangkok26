@@ -64,22 +64,23 @@ aws s3api put-bucket-policy \
 # 3.5. Configure CORS for security
 echo "Configuring S3 CORS..."
 cat > /tmp/s3-cors-$$.json <<'EOF'
-[
-  {
-    "AllowedHeaders": ["*"],
-    "AllowedMethods": ["GET"],
-    "AllowedOrigins": ["https://bangkok26.com", "https://www.bangkok26.com"],
-    "ExposeHeaders": [],
-    "MaxAgeSeconds": 3000
-  }
-]
+{
+  "CORSRules": [
+    {
+      "AllowedHeaders": ["*"],
+      "AllowedMethods": ["GET"],
+      "AllowedOrigins": ["https://bangkok26.com", "https://www.bangkok26.com"],
+      "ExposeHeaders": [],
+      "MaxAgeSeconds": 3000
+    }
+  ]
+}
 EOF
 aws s3api put-bucket-cors \
   --bucket "$S3_BUCKET" \
   --cors-configuration file:///tmp/s3-cors-$$.json \
-  || echo "CORS configuration failed"
+  && echo "CORS configuration applied" || { echo "CORS configuration FAILED"; exit 1; }
 rm -f /tmp/s3-cors-$$.json
-echo "✓ CORS configuration applied"
 
 # 4. Enable S3 versioning for backup
 echo "Enabling S3 versioning..."
