@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CHECKLIST — BANGKOK FIELD GUIDE</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+    background: #C8E2F9;
+    color: #000;
+    font-family: 'Courier New', Courier, monospace;
+    padding: 34px 5% 80px;
+    max-width: 1080px;
+    margin: 0 auto;
+    -webkit-text-size-adjust: 100%;
+}
+
+.crumb { font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 30px; }
+.crumb a { color: #000; text-decoration: none; border-bottom: 2px solid #000; }
+.crumb a:hover { color: #146B43; border-color: #146B43; }
+.crumb i { font-style: normal; opacity: .4; margin: 0 8px; }
+
+h1 {
+    font-family: Impact, 'Arial Black', sans-serif;
+    font-weight: 900;
+    font-size: clamp(46px, 9vw, 88px);
+    line-height: .92;
+    letter-spacing: -.05em;
+    text-transform: uppercase;
+}
+h1 em { font-style: normal; color: #198353; }
+.tagline { margin-top: 14px; font-size: 13px; letter-spacing: 1.5px; line-height: 1.7; max-width: 56ch; }
+
+/* ── 우기 경고 ── */
+.alert {
+    margin: 26px 0 0;
+    border: 3px solid #000;
+    background: #000;
+    color: #FFF;
+    padding: 20px 22px;
+}
+.alert b {
+    display: block;
+    font-family: 'Arial Black', sans-serif;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    color: #9FE6C0;
+}
+.alert p { font-size: 13px; line-height: 1.75; }
+
+/* ── 진행률 ── */
+.progress { margin: 30px 0 44px; }
+.progress-top {
+    display: flex; justify-content: space-between; align-items: baseline;
+    font-family: 'Arial Black', sans-serif; text-transform: uppercase;
+    letter-spacing: 1.5px; margin-bottom: 10px;
+}
+.progress-top span:first-child { font-size: 12px; }
+.progress-top span:last-child { font-size: 20px; }
+.bar { height: 20px; background: rgba(255,255,255,.5); border: 3px solid #000; }
+.bar i { display: block; height: 100%; width: 0; background: #198353; transition: width .35s ease; }
+
+/* ── 섹션 ── */
+.sec {
+    background: rgba(255,255,255,.7);
+    border: 3px solid #000;
+    padding: 26px;
+    margin-bottom: 22px;
+    animation: fadeInUp .6s ease backwards;
+}
+.sec:nth-of-type(1){animation-delay:.05s}
+.sec:nth-of-type(2){animation-delay:.11s}
+.sec:nth-of-type(3){animation-delay:.17s}
+.sec:nth-of-type(4){animation-delay:.23s}
+.sec:nth-of-type(5){animation-delay:.29s}
+.sec:nth-of-type(6){animation-delay:.35s}
+.sec:nth-of-type(7){animation-delay:.41s}
+
+.sec-head { display: flex; align-items: baseline; gap: 12px; padding-bottom: 12px; border-bottom: 3px solid #000; margin-bottom: 6px; }
+.sec-num {
+    font-family: Impact, 'Arial Black', sans-serif;
+    font-size: 30px; line-height: 1; letter-spacing: -.04em;
+    color: rgba(0,0,0,.22);
+}
+.sec-head h2 {
+    font-family: 'Arial Black', sans-serif;
+    font-size: 16px; text-transform: uppercase; letter-spacing: -.01em;
+    line-height: 1.2; flex: 1;
+}
+.sec-when {
+    background: #000; color: #FFF;
+    font-family: 'Arial Black', sans-serif;
+    font-size: 10px; letter-spacing: 1.5px; padding: 5px 9px;
+    white-space: nowrap;
+}
+
+/* ── 항목 ── */
+.item { display: flex; gap: 13px; padding: 13px 0; border-bottom: 1px dashed rgba(0,0,0,.25); }
+.item:last-child { border-bottom: none; }
+
+.item input {
+    appearance: none; -webkit-appearance: none;
+    width: 22px; height: 22px; flex: 0 0 22px;
+    border: 3px solid #000; background: transparent;
+    cursor: pointer; margin-top: 1px; position: relative;
+}
+.item input:checked { background: #000; }
+.item input:checked::after {
+    content: '✓'; color: #FFF; position: absolute;
+    left: 2px; top: -5px; font-size: 15px; font-weight: 700;
+}
+.item input:focus-visible { outline: 3px solid #198353; outline-offset: 2px; }
+
+.item label { cursor: pointer; flex: 1; }
+.item .t { font-size: 13.5px; font-weight: 700; letter-spacing: .3px; line-height: 1.45; }
+.item .d { font-size: 12px; line-height: 1.65; margin-top: 4px; opacity: .8; }
+.item .d a { color: #146B43; }
+.item input:checked ~ label { opacity: .45; text-decoration: line-through; text-decoration-thickness: 2px; }
+
+.reset {
+    display: inline-block; margin-top: 8px;
+    background: #000; color: #FFF; border: none;
+    font-family: 'Arial Black', sans-serif; font-size: 11px;
+    letter-spacing: 2px; padding: 12px 18px; cursor: pointer;
+    transition: all .3s ease;
+}
+.reset:hover { background: #C44536; }
+
+.source { margin-top: 40px; font-size: 11px; line-height: 1.85; letter-spacing: .8px; border-top: 3px solid #000; padding-top: 18px; opacity: .85; }
+.source a { color: #146B43; }
+
+@keyframes fadeInUp { from { opacity:0; transform: translateY(30px); } to { opacity:1; transform: translateY(0); } }
+
+@media (max-width: 768px) {
+    body { padding: 26px 5% 60px; }
+    .sec { padding: 22px 20px; }
+    .sec-head { flex-wrap: wrap; gap: 8px; }
+    .sec-when { order: 3; }
+}
+</style>
+</head>
+<body>
+
+<div class="crumb">
+    THAILAND <i>/</i> BANGKOK <i>/</i> <a href="index.html">FIELD GUIDE</a> <i>/</i> CHECKLIST
+</div>
+
+<h1>CHECK<br><em>LIST</em></h1>
+<p class="tagline">2026.9.25–9.30 · 방콕 6일. 체크 상태는 이 브라우저에 저장되니 닫아도 남는다.</p>
+
+<div class="alert">
+    <b>9월 말 = 우기 끝물</b>
+    <p>방콕의 9–10월은 연중 비가 가장 많은 시기다. 하루 종일 오지는 않고 오후에 한두 시간 쏟아지는 패턴이 많다.
+    우산보다 <strong>얇은 우비 + 방수 파우치</strong>가 낫고, 신발은 마르는 걸 기준으로 고르는 게 낫다.</p>
+</div>
+
+<div class="progress">
+    <div class="progress-top">
+        <span>PROGRESS</span>
+        <span id="ptext">0 / 0</span>
+    </div>
+    <div class="bar"><i id="pfill"></i></div>
+</div>
+
+<!-- 1 -->
+<div class="sec">
+    <div class="sec-head">
+        <span class="sec-num">01</span>
+        <h2>입국 서류</h2>
+        <span class="sec-when">D-3 까지</span>
+    </div>
+    <div class="item"><input type="checkbox" id="c1"><label for="c1">
+        <div class="t">TDAC (태국 디지털 입국카드) 제출</div>
+        <div class="d"><b>전원 필수 · 무료 · 도착 3일 전까지.</b> 종이 TM6를 대체했다.
+        <a href="https://tdac.immigration.go.th/" target="_blank" rel="noopener noreferrer">tdac.immigration.go.th</a> —
+        수수료를 받는 사이트는 공식이 아니다.</div></label></div>
+    <div class="item"><input type="checkbox" id="c2"><label for="c2">
+        <div class="t">여권 유효기간 확인</div>
+        <div class="d">잔여 6개월 이상을 기준으로 보는 게 안전하다. 부족하면 재발급부터.</div></label></div>
+    <div class="item"><input type="checkbox" id="c3"><label for="c3">
+        <div class="t">무비자 체류 조건 확인</div>
+        <div class="d">한국 여권의 태국 관광 체류 조건은 출발 전 <a href="https://seoul.thaiembassy.org/" target="_blank" rel="noopener noreferrer">주한 태국대사관</a>에서 확인한다. 규정이 바뀌는 항목이다.</div></label></div>
+    <div class="item"><input type="checkbox" id="c4"><label for="c4">
+        <div class="t">왕복 항공권 · 숙소 바우처 오프라인 저장</div>
+        <div class="d">입국심사에서 요구할 수 있다. 스크린샷으로 갖고 있으면 데이터 없이도 보여준다.</div></label></div>
+    <div class="item"><input type="checkbox" id="c5"><label for="c5">
+        <div class="t">여행자보험 가입 + 증서 저장</div>
+        <div class="d">방콕 사설병원은 선결제가 기본이다. 증서와 보험사 연락처를 폰에 저장.</div></label></div>
+    <div class="item"><input type="checkbox" id="c6"><label for="c6">
+        <div class="t">여권 사본 · 여권용 사진 별도 보관</div>
+        <div class="d">분실 시 재발급이 훨씬 빠르다. 원본과 다른 가방에 넣는다.</div></label></div>
+</div>
+
+<!-- 2 -->
+<div class="sec">
+    <div class="sec-head">
+        <span class="sec-num">02</span>
+        <h2>돈 · 통신</h2>
+        <span class="sec-when">출발 전</span>
+    </div>
+    <div class="item"><input type="checkbox" id="c7"><label for="c7">
+        <div class="t">THB 현금 준비</div>
+        <div class="d">노점·재래시장·툭툭은 현금이다. 대형몰과 편의점은 카드가 잘 된다.</div></label></div>
+    <div class="item"><input type="checkbox" id="c8"><label for="c8">
+        <div class="t">해외결제 되는 카드 2장 (다른 브랜드)</div>
+        <div class="d">한 장이 막히는 상황을 대비한다. 분실 대비로 나눠서 보관.</div></label></div>
+    <div class="item"><input type="checkbox" id="c9"><label for="c9">
+        <div class="t">eSIM 또는 유심</div>
+        <div class="d">Grab·지도·번역에 데이터가 계속 필요하다. eSIM은 출발 전에 미리 설치해두면 도착 즉시 켜진다.</div></label></div>
+    <div class="item"><input type="checkbox" id="c10"><label for="c10">
+        <div class="t">Grab 앱 설치 + 결제수단 등록</div>
+        <div class="d">택시 미터 분쟁을 피하는 가장 쉬운 방법이다. 한국에서 미리 카드 등록까지 끝내둔다.</div></label></div>
+    <div class="item"><input type="checkbox" id="c11"><label for="c11">
+        <div class="t">콘센트 확인 — 220V</div>
+        <div class="d">태국은 220V이고 한국 C형 플러그가 그대로 들어가는 소켓이 많다. 다만 A형 전용 소켓도 있어 멀티 어댑터가 안전하다.</div></label></div>
+    <div class="item"><input type="checkbox" id="c12"><label for="c12">
+        <div class="t">보조배터리 (기내 수하물)</div>
+        <div class="d">위탁 수하물에 넣으면 안 된다. 기내에 들고 탄다.</div></label></div>
+</div>
+
+<!-- 3 -->
+<div class="sec">
+    <div class="sec-head">
+        <span class="sec-num">03</span>
+        <h2>우기 대비</h2>
+        <span class="sec-when">짐 싸기</span>
+    </div>
+    <div class="item"><input type="checkbox" id="c13"><label for="c13">
+        <div class="t">얇은 우비 · 접이식 우산</div>
+        <div class="d">우비가 우산보다 낫다. 오토바이·툭툭 탈 때 우산은 못 쓴다.</div></label></div>
+    <div class="item"><input type="checkbox" id="c14"><label for="c14">
+        <div class="t">방수 파우치 (폰 · 여권)</div>
+        <div class="d">갑자기 쏟아진다. 지퍼백도 충분하다.</div></label></div>
+    <div class="item"><input type="checkbox" id="c15"><label for="c15">
+        <div class="t">빨리 마르는 옷 위주</div>
+        <div class="d">면은 습해서 안 마른다. 기능성 소재가 낫다.</div></label></div>
+    <div class="item"><input type="checkbox" id="c16"><label for="c16">
+        <div class="t">샌들 + 신발 한 켤레씩</div>
+        <div class="d">한 켤레가 젖으면 갈아 신을 게 있어야 한다. 물 고인 길이 많다.</div></label></div>
+</div>
+
+<!-- 4 -->
+<div class="sec">
+    <div class="sec-head">
+        <span class="sec-num">04</span>
+        <h2>러닝</h2>
+        <span class="sec-when">짐 싸기</span>
+    </div>
+    <div class="item"><input type="checkbox" id="c17"><label for="c17">
+        <div class="t">러닝화 · 땀 배출 되는 상하의</div>
+        <div class="d">코스는 <a href="run-tracks.html">RUN TRACKS</a> 참고. 전부 평지이고 한 시간 안에 끝난다.</div></label></div>
+    <div class="item"><input type="checkbox" id="c18"><label for="c18">
+        <div class="t">전해질 · 물통</div>
+        <div class="d">덥고 습해서 땀이 많이 난다. 공원 안에 편의점이나 매점이 있다.</div></label></div>
+    <div class="item"><input type="checkbox" id="c19"><label for="c19">
+        <div class="t">이른 아침 시간대 확보</div>
+        <div class="d">낮에는 체감이 크게 올라간다. 해 뜨는 직후가 가장 뛸 만하다.</div></label></div>
+</div>
+
+<!-- 5 -->
+<div class="sec">
+    <div class="sec-head">
+        <span class="sec-num">05</span>
+        <h2>사원 방문 복장</h2>
+        <span class="sec-when">짐 싸기</span>
+    </div>
+    <div class="item"><input type="checkbox" id="c20"><label for="c20">
+        <div class="t">무릎 덮는 하의</div>
+        <div class="d">왕궁·주요 사원은 반바지로 입장이 막힌다. 얇은 긴바지나 롱스커트 한 벌.</div></label></div>
+    <div class="item"><input type="checkbox" id="c21"><label for="c21">
+        <div class="t">어깨 덮는 상의 또는 스카프</div>
+        <div class="d">민소매는 안 된다. 얇은 스카프 하나로 해결된다.</div></label></div>
+    <div class="item"><input type="checkbox" id="c22"><label for="c22">
+        <div class="t">벗기 쉬운 신발</div>
+        <div class="d">사원 안에서는 신발을 벗는다. 끈 묶는 신발은 번거롭다.</div></label></div>
+</div>
+
+<!-- 6 -->
+<div class="sec">
+    <div class="sec-head">
+        <span class="sec-num">06</span>
+        <h2>건강 · 상비약</h2>
+        <span class="sec-when">짐 싸기</span>
+    </div>
+    <div class="item"><input type="checkbox" id="c23"><label for="c23">
+        <div class="t">모기 기피제</div>
+        <div class="d">우기라 모기가 많다. 공원에서 뛸 때도 쓴다.</div></label></div>
+    <div class="item"><input type="checkbox" id="c24"><label for="c24">
+        <div class="t">자외선 차단제</div>
+        <div class="d">흐려도 자외선은 강하다.</div></label></div>
+    <div class="item"><input type="checkbox" id="c25"><label for="c25">
+        <div class="t">지사제 · 소화제 · 진통제</div>
+        <div class="d">길거리 음식에 적응이 필요할 수 있다. 현지 약국(Boots·Watsons)도 많다.</div></label></div>
+    <div class="item"><input type="checkbox" id="c26"><label for="c26">
+        <div class="t">개인 처방약 + 처방전 사본</div>
+        <div class="d">약 이름을 영문으로 적어두면 현지 병원에서 설명이 쉽다.</div></label></div>
+    <div class="item"><input type="checkbox" id="c27"><label for="c27">
+        <div class="t">수돗물은 마시지 않기</div>
+        <div class="d">생수를 사서 마신다. 얼음은 대체로 정제수를 쓰지만 노점은 가릴 필요가 있다.</div></label></div>
+</div>
+
+<!-- 7 -->
+<div class="sec">
+    <div class="sec-head">
+        <span class="sec-num">07</span>
+        <h2>도착 직후</h2>
+        <span class="sec-when">공항에서</span>
+    </div>
+    <div class="item"><input type="checkbox" id="c28"><label for="c28">
+        <div class="t">유심/eSIM 개통 확인</div>
+        <div class="d">공항을 나가기 전에 데이터가 되는지 확인한다.</div></label></div>
+    <div class="item"><input type="checkbox" id="c29"><label for="c29">
+        <div class="t">공항 → 시내 이동수단 정하기</div>
+        <div class="d">Grab 또는 공항철도. 호객하는 택시는 피한다.</div></label></div>
+    <div class="item"><input type="checkbox" id="c30"><label for="c30">
+        <div class="t">교통카드 충전 (BTS/MRT)</div>
+        <div class="d">BTS는 Rabbit 카드, MRT는 별도 카드다. 두 시스템이 분리되어 있다.</div></label></div>
+    <div class="item"><input type="checkbox" id="c31"><label for="c31">
+        <div class="t">긴급번호 저장</div>
+        <div class="d"><a href="emergency.html">EMERGENCY</a> 페이지에서 191 · 1669 · 1155 · 대사관 번호를 폰에 저장해둔다.</div></label></div>
+    <button class="reset" id="reset">체크 전체 해제</button>
+</div>
+
+<p class="source">
+    TDAC 요건(전원 필수 · 도착 3일 전 · 무료)은 <a href="https://tdac.immigration.go.th/" target="_blank" rel="noopener noreferrer">태국 이민국 공식 TDAC 사이트</a>에서 2026-08-19 확인했다.<br>
+    <b>무비자 체류기간은 이 페이지에 적지 않았다</b> — 태국 측 공식 페이지에서 확인이 안 돼, 숫자를 싣는 대신 확인 항목으로 남겼다. 규정이 바뀌는 항목이니 출발 전 대사관에서 직접 확인하기를 권한다.<br>
+    여권 잔여기간 6개월은 항공사·입국심사에서 통용되는 기준을 안전하게 잡은 것이고, 태국 법령을 인용한 값은 아니다.<br>
+    9–10월이 방콕에서 비가 가장 많은 시기라는 것은 일반적인 기후 특성이다. 실제 예보는 출발 직전에 확인한다.
+</p>
+
+<script>
+(function () {
+    var KEY = 'bangkok_checklist_state';
+    var boxes = Array.prototype.slice.call(document.querySelectorAll('.item input[type=checkbox]'));
+    var ptext = document.getElementById('ptext');
+    var pfill = document.getElementById('pfill');
+
+    function load() {
+        try { return JSON.parse(localStorage.getItem(KEY)) || {}; }
+        catch (e) { return {}; }
+    }
+    function save(state) {
+        try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {}
+    }
+    function render() {
+        var done = boxes.filter(function (b) { return b.checked; }).length;
+        ptext.textContent = done + ' / ' + boxes.length;
+        pfill.style.width = (boxes.length ? done / boxes.length * 100 : 0) + '%';
+    }
+
+    var state = load();
+    boxes.forEach(function (b) {
+        if (state[b.id]) b.checked = true;
+        b.addEventListener('change', function () {
+            state[b.id] = b.checked;
+            save(state);
+            render();
+        });
+    });
+    render();
+
+    document.getElementById('reset').addEventListener('click', function () {
+        boxes.forEach(function (b) { b.checked = false; });
+        state = {};
+        save(state);
+        render();
+    });
+})();
+</script>
+
+</body>
+</html>

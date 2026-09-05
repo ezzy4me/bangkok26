@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BANGKOK FIELD GUIDE</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #C8E2F9;
+            width: 100vw;
+            min-height: calc(100vh + 100px);
+            overflow-y: auto;
+            overflow-x: hidden;
+            position: relative;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Central Graphic */
+        .central-graphic {
+            position: absolute;
+            left: 50%;
+            top: 40%;
+            transform: translate(-50%, -50%) rotate(90deg);
+            height: 55vh;
+            mix-blend-mode: multiply;
+            z-index: 1;
+        }
+
+        /* Navigation Menu - Top Left */
+        .nav-menu {
+            position: absolute;
+            left: 5%;
+            top: 14%;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .nav-menu a {
+            font-family: 'Arial Black', sans-serif;
+            font-weight: 900;
+            font-size: clamp(18px, 2.2vw, 24px);
+            text-transform: uppercase;
+            color: #000;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .nav-menu a:hover {
+            color: #198353;
+        }
+
+        /* Hashtag - Center Top */
+        .hashtag {
+            position: absolute;
+            left: 50%;
+            top: 6%;
+            transform: translateX(-50%);
+            font-family: 'Courier New', 'Courier', monospace;
+            font-weight: 400;
+            font-size: 48px;
+            letter-spacing: 0.15em;
+            color: #198353;
+            z-index: 10;
+        }
+
+        /* Dates - Bottom Left */
+        .dates {
+            position: fixed;
+            left: 5%;
+            bottom: 8%;
+            z-index: 10;
+            font-family: Impact, 'Arial Black', sans-serif;
+            font-weight: 900;
+            font-size: clamp(54px, 7vw, 64px);
+            line-height: 1.1;
+            color: #198353;
+        }
+
+        /* Japanese Text - Center Bottom */
+        .japanese-text {
+            position: absolute;
+            left: 50%;
+            bottom: 14%;
+            transform: translateX(-50%);
+            font-family: "Noto Serif Thai", "Thonburi", "Sukhumvit Set", Georgia, serif;
+            font-size: clamp(18px, 2.5vw, 24px);
+            font-weight: 400;
+            color: #000;
+            z-index: 10;
+            white-space: nowrap;
+        }
+
+        /* Names Vertical - Top Right */
+        .names-vertical {
+            position: absolute;
+            right: 5%;
+            top: 14%;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            font-family: 'Courier New', monospace;
+            font-weight: 300;
+            color: #198353;
+        }
+
+        .names-vertical div {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            font-size: 16px;
+            letter-spacing: 0.05em;
+        }
+
+        /* Place Info - Bottom Right */
+        .place-info {
+            position: fixed;
+            right: 5%;
+            bottom: 10%;
+            z-index: 10;
+            text-align: right;
+        }
+
+        .place-label {
+            font-family: 'Arial Black', sans-serif;
+            font-weight: 900;
+            font-size: 16px;
+            text-transform: uppercase;
+            color: #000;
+            margin-bottom: 8px;
+        }
+
+        .place-box {
+            display: inline-block;
+            background: #000;
+            color: #FFF;
+            padding: 12px 16px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.4;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .place-box:hover {
+            background: #FFF;
+            color: #000;
+            transform: translateY(-2px);
+        }
+
+        .place-box div:first-child {
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .central-graphic {
+                height: 45vh;
+            }
+
+            .nav-menu {
+                left: 3%;
+                top: 12%;
+                gap: 6px;
+            }
+
+            .nav-menu a {
+                font-size: 18px;
+            }
+
+            .hashtag {
+                font-size: 34px;
+                top: 5%;
+            }
+
+            .names-vertical {
+                right: 3%;
+                top: 12%;
+            }
+
+            .names-vertical div {
+                font-size: 14px;
+            }
+
+            .dates {
+                font-size: 50px;
+                left: 3%;
+                bottom: 6%;
+            }
+
+            .japanese-text {
+                font-size: 16px;
+                bottom: 13%;
+            }
+
+            .place-info {
+                right: 3%;
+                bottom: 8%;
+            }
+
+            .place-label {
+                font-size: 14px;
+            }
+
+            .place-box {
+                padding: 10px 12px;
+                font-size: 11px;
+            }
+
+            .place-box div:first-child {
+                font-size: 12px;
+            }
+        }
+
+        /* Small Mobile */
+        @media (max-width: 480px) {
+            .central-graphic {
+                height: 40vh;
+            }
+
+            .nav-menu {
+                left: 2%;
+                top: 11%;
+            }
+
+            .nav-menu a {
+                font-size: 16px;
+            }
+
+            .hashtag {
+                font-size: 32px;
+            }
+
+            .names-vertical {
+                top: 11%;
+            }
+
+            .names-vertical div {
+                font-size: 12px;
+            }
+
+            .dates {
+                font-size: 44px;
+                left: 2%;
+                bottom: 5%;
+            }
+
+            .japanese-text {
+                font-size: 14px;
+                bottom: 14%;
+            }
+
+            .place-info {
+                right: 2%;
+                bottom: 7%;
+            }
+        }
+
+        /* Extra Small Screens (iPhone SE) */
+        @media (max-width: 375px) {
+            .japanese-text {
+                font-size: 14px;
+                letter-spacing: -0.02em;
+                bottom: 14%;
+            }
+
+            .names-vertical div {
+                font-size: 11px;
+            }
+        }
+
+        /* Loading Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .hashtag,
+        .central-graphic,
+        .nav-menu,
+        .names-vertical,
+        .dates,
+        .japanese-text,
+        .place-info {
+            animation: fadeIn 0.6s ease backwards;
+        }
+
+        .hashtag { animation-delay: 0.1s; }
+        .central-graphic { animation-delay: 0.2s; }
+        .nav-menu { animation-delay: 0.3s; }
+        .names-vertical { animation-delay: 0.4s; }
+        .dates { animation-delay: 0.5s; }
+        .japanese-text { animation-delay: 0.6s; }
+        .place-info { animation-delay: 0.7s; }
+    </style>
+</head>
+<body>
+
+    <!-- Central Graphic -->
+    <img src="bangkok-skyline.png" class="central-graphic" alt="Bangkok Skyline">
+
+    <!-- Navigation Menu - Top Left -->
+    <nav class="nav-menu">
+        <a href="run-tracks.html">RUN TRACKS</a>
+        <a href="checklist.html">CHECKLIST</a>
+        <a href="emergency.html">EMERGENCY</a>
+    </nav>
+
+    <!-- Hashtag - Center Top -->
+    <div class="hashtag">#bangkok</div>
+
+    <!-- Names - Top Right (Vertical) -->
+    <div class="names-vertical">
+        <div>sangmin·yunnyeoung</div>
+    </div>
+
+    <!-- Dates - Bottom Left -->
+    <div class="dates">
+        <div>2026.</div>
+        <div>9.25-</div>
+        <div>9.30</div>
+    </div>
+
+    <!-- Japanese Text - Center Bottom -->
+    <div class="japanese-text">ไม่เป็นไร</div>
+
+    <!-- Place Info - Bottom Right -->
+    <div class="place-info">
+        <div class="place-label">WE SLEEP HERE:</div>
+        <a href="https://www.google.com/maps/search/?api=1&amp;query=Crowne+Plaza+Bangkok+Lumpini+Park" class="place-box" target="_blank" rel="noopener noreferrer">
+            <div>คราวน์ พลาซ่า ลุมพินี พาร์ค</div>
+            <div>Crowne Plaza Bangkok</div>
+            <div>Lumpini Park</div>
+        </a>
+    </div>
+
+</body>
+</html>
