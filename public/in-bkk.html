@@ -9,38 +9,73 @@
 body {
     background:#C8E2F9; color:#000;
     font-family:'Courier New',Courier,monospace;
-    padding:34px 5% 80px; max-width:1080px; margin:0 auto;
-    -webkit-text-size-adjust:100%;
+    padding:40px 20px 80px; position:relative; overflow-x:hidden;
 }
-.crumb { font-size:11px; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:30px; }
-.crumb a { color:#000; text-decoration:none; border-bottom:2px solid #000; }
-.crumb a:hover { color:#146B43; border-color:#146B43; }
-.crumb i { font-style:normal; opacity:.4; margin:0 8px; }
 
-h1 {
-    font-family:Impact,'Arial Black',sans-serif; font-weight:900;
-    font-size:clamp(46px,9vw,88px); line-height:.92;
-    letter-spacing:-.05em; text-transform:uppercase;
+/* ── 배경 그래픽 ── */
+.background-graphic {
+    position:absolute; right:5%; top:3%;
+    width:200px; height:auto; z-index:1;
+    opacity:.4; mix-blend-mode:multiply;
+    transition:transform .1s ease-out;
 }
-h1 em { font-style:normal; color:#198353; }
-.tagline { margin-top:14px; font-size:13px; letter-spacing:1.5px; line-height:1.7; max-width:56ch; }
 
-/* 섹션 */
-section { margin-top:52px; }
-.sec-title {
+/* ── 햄버거 네비 ── */
+.menu-toggle {
+    position:fixed; right:5%; top:5%; z-index:200;
+    background:none; border:none; color:#198353;
+    font-size:60px; font-weight:300; line-height:1;
+    letter-spacing:-.1em; cursor:pointer; padding:0;
+    font-family:'Arial',sans-serif; transition:all .3s ease;
+}
+.menu-toggle:hover { color:#000; }
+.nav-menu-overlay {
+    position:fixed; right:-300px; top:0; width:250px; height:100vh;
+    z-index:150; display:flex; flex-direction:column;
+    padding:80px 30px 30px; gap:15px; transition:right .4s ease;
+}
+.nav-menu-overlay.open { right:0; }
+.nav-menu-overlay a {
+    font-family:'Arial Black',sans-serif; font-weight:900;
+    font-size:18px; text-transform:uppercase; color:#000;
+    text-decoration:none; padding:8px 0; transition:all .3s;
+}
+.nav-menu-overlay a:hover { color:#198353; }
+.nav-menu-overlay a.active { color:#198353; text-decoration:underline; text-decoration-thickness:3px; }
+
+/* ── 헤더 ── */
+header {
+    text-align:left; margin:0 auto 60px; max-width:1200px; padding-left:20px;
+    position:relative; z-index:10;
+}
+header h1 {
+    font-family:'Courier New','Courier',monospace;
+    font-size:clamp(32px,6vw,54px); font-weight:400;
+    letter-spacing:.15em; color:#198353; margin-bottom:15px;
+}
+header .subtitle {
+    font-family:'Courier New',monospace; font-size:14px; font-weight:400;
+    text-transform:uppercase; color:#000; opacity:.7; letter-spacing:2px;
+}
+
+.container { max-width:1200px; margin:0 auto; padding:0 20px; position:relative; z-index:10; }
+
+/* ── 섹션 ── */
+section { margin-bottom:70px; }
+.section-title {
     font-family:Impact,'Arial Black',sans-serif; font-weight:900;
     font-size:clamp(30px,6vw,50px); letter-spacing:-.04em;
     text-transform:uppercase; line-height:1;
 }
-.sec-sub {
+.section-sub {
     font-size:12px; letter-spacing:2px; text-transform:uppercase;
-    margin:8px 0 22px; padding-bottom:14px; border-bottom:3px solid #000;
+    margin:8px 0 24px; padding-bottom:14px; border-bottom:3px solid #000;
 }
-a.sec-link { text-decoration:none; color:#000; display:inline-block; }
-a.sec-link:hover .sec-title { color:#146B43; }
+a.section-title-link { text-decoration:none; color:#000; display:inline-block; }
+a.section-title-link:hover .section-title { color:#146B43; }
 
-/* 카드 */
-.card { background:rgba(255,255,255,.7); border:3px solid #000; padding:24px; }
+/* ── 카드 ── */
+.card { background:rgba(255,255,255,.7); border:3px solid #000; padding:25px; }
 .grid2 { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:20px; }
 
 /* FLIGHTS */
@@ -49,157 +84,231 @@ a.sec-link:hover .sec-title { color:#146B43; }
     font-family:'Arial Black',sans-serif; font-size:11px;
     letter-spacing:2px; padding:6px 11px; margin-bottom:14px;
 }
-.leg-row { display:flex; justify-content:space-between; gap:12px; padding:8px 0; border-bottom:1px dashed rgba(0,0,0,.25); font-size:12.5px; }
-.leg-row:last-child { border-bottom:none; }
-.leg-row b { font-weight:700; }
-.leg-time { font-family:Impact,'Arial Black',sans-serif; font-size:26px; letter-spacing:-.02em; line-height:1.1; margin-top:12px; }
-
-/* 대기 상태 */
-.pending {
-    border:3px dashed #000; background:rgba(255,255,255,.4);
-    padding:20px; font-size:12.5px; line-height:1.75;
+.leg-route {
+    font-family:Impact,'Arial Black',sans-serif; font-size:30px;
+    letter-spacing:-.03em; line-height:1;
 }
-.pending b { font-family:'Arial Black',sans-serif; font-size:11px; letter-spacing:1.5px; display:block; margin-bottom:7px; }
-.pending code { background:#000; color:#FFF; padding:1px 5px; font-size:11px; }
+.leg-clock { font-size:13px; letter-spacing:1px; margin-top:6px; opacity:.75; }
+.leg-row {
+    display:flex; justify-content:space-between; gap:12px;
+    padding:9px 0; border-bottom:1px dashed rgba(0,0,0,.25); font-size:12.5px;
+}
+.leg-row:last-child { border-bottom:none; }
+.note-box {
+    border:3px dashed #000; background:rgba(255,255,255,.45);
+    padding:20px; margin-top:20px; font-size:12.5px; line-height:1.8;
+}
+.tag { background:#000; color:#FFF; padding:2px 7px; font-size:10.5px; letter-spacing:1.2px; font-family:'Arial Black',sans-serif; }
 
 /* WEATHER */
-.chart-wrap { background:rgba(255,255,255,.7); border:3px solid #000; padding:18px; height:340px; }
-.chart-note { font-size:11px; letter-spacing:1px; margin-top:9px; opacity:.8; }
+.chart-wrapper { background:rgba(255,255,255,.7); border:3px solid #000; padding:18px; height:340px; }
+.chart-note { font-size:11px; letter-spacing:1px; margin-top:10px; opacity:.8; }
 
-/* PHRASES */
-.tools { display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-bottom:18px; }
-.search {
-    flex:1 1 220px; border:3px solid #000; background:rgba(255,255,255,.8);
-    padding:11px 13px; font-family:'Courier New',monospace; font-size:13px;
+/* PLACES / PHRASES 공통 도구 */
+.search-box { margin-bottom:16px; }
+.search-box input {
+    width:100%; border:3px solid #000; background:rgba(255,255,255,.8);
+    padding:12px 14px; font-family:'Courier New',monospace; font-size:13px;
 }
-.search:focus { outline:3px solid #198353; outline-offset:2px; }
-.fbtns { display:flex; flex-wrap:wrap; gap:8px; }
-.fbtn {
+.search-box input:focus { outline:3px solid #198353; outline-offset:2px; }
+.filter-section { margin-bottom:20px; }
+.filter-label {
+    font-family:'Arial Black',sans-serif; font-size:10.5px;
+    letter-spacing:2px; text-transform:uppercase; margin-bottom:9px; opacity:.75;
+}
+.filter-buttons { display:flex; flex-wrap:wrap; gap:8px; }
+.filter-btn {
     border:3px solid #000; background:rgba(255,255,255,.6);
     font-family:'Arial Black',sans-serif; font-size:10.5px; letter-spacing:1.2px;
     text-transform:uppercase; padding:9px 12px; cursor:pointer; transition:all .2s;
 }
-.fbtn:hover { background:#000; color:#FFF; }
-.fbtn.active { background:#000; color:#FFF; }
+.filter-btn:hover, .filter-btn.active { background:#000; color:#FFF; }
 
-.plist { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:16px; }
-.ph {
+.phrase-list { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:16px; }
+.phrase-card {
     background:rgba(255,255,255,.7); border:3px solid #000; padding:18px;
     transition:transform .2s ease, box-shadow .2s ease;
 }
-.ph:hover { transform:translateY(-3px); box-shadow:6px 6px 0 #000; }
-.ph .th {
+.phrase-card:hover { transform:translateY(-3px); box-shadow:6px 6px 0 #000; }
+.phrase-card .th {
     font-family:"Noto Serif Thai","Thonburi","Sukhumvit Set",Georgia,serif;
     font-size:23px; line-height:1.4; color:#146B43;
 }
-.ph .ko { font-size:13.5px; font-weight:700; margin-top:7px; letter-spacing:.3px; }
-.ph .rm { font-size:11.5px; opacity:.7; margin-top:3px; letter-spacing:.5px; }
-.ph .cat {
+.phrase-card .ko { font-size:13.5px; font-weight:700; margin-top:7px; }
+.phrase-card .rm { font-size:11.5px; opacity:.7; margin-top:3px; letter-spacing:.5px; }
+.phrase-card .cat {
     display:inline-block; margin-top:11px; border:2px solid #000;
     font-size:9.5px; letter-spacing:1.2px; text-transform:uppercase; padding:3px 7px;
 }
-.count { font-size:11px; letter-spacing:1.5px; margin-bottom:14px; opacity:.8; }
+
+/* 숫자 테이블 */
+.number-table-card {
+    grid-column:1/-1;
+    background:#000; color:#FFF; border:3px solid #000; padding:22px;
+}
+.number-table-title {
+    font-family:'Arial Black',sans-serif; font-size:12px;
+    letter-spacing:2px; text-transform:uppercase; margin-bottom:14px; color:#9FE6C0;
+}
+.number-table { width:100%; border-collapse:collapse; }
+.number-table td {
+    padding:9px 8px; border-bottom:1px dashed rgba(255,255,255,.25);
+    font-size:13px; vertical-align:baseline;
+}
+.number-table td:nth-child(odd) {
+    font-family:Impact,'Arial Black',sans-serif; font-size:19px;
+    width:52px; color:#9FE6C0;
+}
+.number-table td:nth-child(even) {
+    font-family:"Noto Serif Thai","Thonburi","Sukhumvit Set",Georgia,serif; font-size:16px;
+}
+.number-note { font-size:11.5px; line-height:1.7; margin-top:13px; opacity:.8; }
+
+.result-count { font-size:11px; letter-spacing:1.5px; margin-bottom:14px; opacity:.8; }
 .empty { grid-column:1/-1; padding:26px; text-align:center; font-size:13px; border:3px dashed #000; }
 
-.source { margin-top:52px; font-size:11px; line-height:1.85; letter-spacing:.8px; border-top:3px solid #000; padding-top:18px; opacity:.85; }
+.source {
+    max-width:1200px; margin:0 auto; padding:18px 20px 0;
+    font-size:11px; line-height:1.85; letter-spacing:.8px;
+    border-top:3px solid #000; opacity:.85; position:relative; z-index:10;
+}
 .source a { color:#146B43; }
 
 @media (max-width:768px) {
-    body { padding:26px 5% 60px; }
-    .chart-wrap { height:280px; }
-    .plist, .grid2 { grid-template-columns:1fr; }
+    body { padding:30px 12px 60px; }
+    .background-graphic { width:120px; opacity:.28; }
+    .menu-toggle { font-size:46px; }
+    header { padding-left:8px; margin-bottom:40px; }
+    .container { padding:0 8px; }
+    .chart-wrapper { height:280px; }
+    .grid2, .phrase-list { grid-template-columns:1fr; }
+    .number-table td:nth-child(odd) { width:42px; font-size:16px; }
 }
 </style>
 </head>
 <body>
 
-<div class="crumb">
-    THAILAND <i>/</i> BANGKOK <i>/</i> <a href="index.html">FIELD GUIDE</a> <i>/</i> IN BKK
+<img src="bangkok-skyline.png" class="background-graphic" alt="" loading="lazy">
+
+<button class="menu-toggle" onclick="toggleMenu()" aria-label="메뉴 열기">−</button>
+<nav class="nav-menu-overlay" id="navMenu">
+    <a href="index.html">MAIN</a>
+    <a href="run-tracks.html">RUN TRACKS</a>
+    <a href="in-bkk.html" class="active">IN BKK</a>
+    <a href="checklist.html">CHECKLIST</a>
+    <a href="emergency.html">EMERGENCY</a>
+</nav>
+
+<header>
+    <h1>#in bkk</h1>
+    <p class="subtitle">Local Guide &amp; Travel Info</p>
+</header>
+
+<div class="container">
+
+    <!-- Section 1: Flights -->
+    <section>
+        <h2 class="section-title">FLIGHTS</h2>
+        <p class="section-sub">2026.9.26 – 10.1 · 아시아나항공</p>
+
+        <div class="grid2">
+            <div class="card">
+                <div class="leg-label">OUTBOUND · 가는 편</div>
+                <div class="leg-route">ICN → BKK</div>
+                <div class="leg-clock">07:05 → 10:40</div>
+                <div style="margin-top:16px">
+                    <div class="leg-row"><span>편명</span><b>OZ743</b></div>
+                    <div class="leg-row"><span>날짜</span><b>2026.09.26 (토)</b></div>
+                    <div class="leg-row"><span>출발</span><b>07:05 인천 (KST)</b></div>
+                    <div class="leg-row"><span>도착</span><b>10:40 수완나품 (ICT)</b></div>
+                    <div class="leg-row"><span>비행시간</span><b>5시간 35분</b></div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="leg-label">INBOUND · 오는 편</div>
+                <div class="leg-route">BKK → ICN</div>
+                <div class="leg-clock">01:35 → 08:55</div>
+                <div style="margin-top:16px">
+                    <div class="leg-row"><span>편명</span><b>OZ742</b></div>
+                    <div class="leg-row"><span>날짜</span><b>2026.10.01 (목)</b></div>
+                    <div class="leg-row"><span>출발</span><b>01:35 수완나품 (ICT)</b></div>
+                    <div class="leg-row"><span>도착</span><b>08:55 인천 (KST)</b></div>
+                    <div class="leg-row"><span>비행시간</span><b>5시간 20분</b></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="note-box">
+            <span class="tag">귀국편 자정 넘어 출발</span>
+            OZ742는 10월 1일 01:35 출발이다. 9월 30일 밤에 공항으로 이동해야 하고 숙소 체크아웃도 9월 30일이다.
+            9월 26일은 10:40 도착이라 반일이므로, <b>온전히 움직이는 날은 9.27–9.30 나흘</b>이다.<br><br>
+            <span class="tag">가는 편 이른 아침</span>
+            07:05 출발이면 인천공항 05:00 전후 도착이 안전하다. 첫 공항철도로는 대기 어려우니 전날 이동이나 심야 교통편을 미리 정해두는 편이 낫다.<br><br>
+            방콕(ICT)은 서울(KST)보다 <b>2시간 느리다</b>.
+        </div>
+    </section>
+
+    <!-- Section 2: Weather -->
+    <section>
+        <h2 class="section-title">WEATHER</h2>
+        <p class="section-sub">방콕 실시간 72시간 예보</p>
+        <div class="chart-wrapper"><canvas id="weatherChart"></canvas></div>
+        <p class="chart-note" id="wxNote">불러오는 중…</p>
+    </section>
+
+    <!-- Section 3: Places -->
+    <section>
+        <h2 class="section-title">PLACES</h2>
+        <p class="section-sub">가볼 곳</p>
+        <div class="note-box">
+            <span class="tag">장소 목록 대기</span>
+            Google My Maps에 가볼 곳을 모아두면 그대로 페이지로 옮긴다.
+            My Maps에서 목록을 만들고 <b>KML 내보내기</b> → <b>bangkokagent/mapinfo/</b> 에 넣어주면
+            검색·카테고리 필터가 붙은 목록으로 만든다.
+        </div>
+    </section>
+
+    <!-- Section 4: Phrases -->
+    <section>
+        <h2 class="section-title">PHRASES</h2>
+        <p class="section-sub">급할 때 쓰는 태국어</p>
+
+        <div class="search-box">
+            <input id="q" type="search" placeholder="한국어 · 태국어 · 발음 검색" aria-label="구문 검색">
+        </div>
+        <div class="filter-section">
+            <div class="filter-label">Category</div>
+            <div class="filter-buttons" id="cats"></div>
+        </div>
+        <div class="result-count" id="cnt"></div>
+        <div class="phrase-list" id="list"></div>
+    </section>
+
 </div>
-
-<h1>IN<br><em>BKK</em></h1>
-<p class="tagline">항공 · 날씨 · 장소 · 태국어. 현지에서 열어보는 페이지다.</p>
-
-<!-- ================= FLIGHTS ================= -->
-<section>
-    <h2 class="sec-title">Flights</h2>
-    <p class="sec-sub">2026.9.26 – 10.1</p>
-    <div class="grid2">
-        <div class="card">
-            <div class="leg-label">OUTBOUND · 가는 편</div>
-            <div class="leg-time">ICN → BKK<br><span style="font-family:'Courier New',monospace;font-size:13px;letter-spacing:1px">07:05 → 10:40</span></div>
-            <div class="leg-row"><span>항공사</span><b>아시아나항공 (OZ)</b></div>
-            <div class="leg-row"><span>편명</span><b>OZ743</b></div>
-            <div class="leg-row"><span>날짜</span><b>2026.09.26 (토)</b></div>
-            <div class="leg-row"><span>출발</span><b>07:05 인천 (KST)</b></div>
-            <div class="leg-row"><span>도착</span><b>10:40 수완나품 (ICT)</b></div>
-            <div class="leg-row"><span>비행시간</span><b>5시간 35분</b></div>
-        </div>
-        <div class="card">
-            <div class="leg-label">INBOUND · 오는 편</div>
-            <div class="leg-time">BKK → ICN<br><span style="font-family:'Courier New',monospace;font-size:13px;letter-spacing:1px">01:35 → 08:55</span></div>
-            <div class="leg-row"><span>항공사</span><b>아시아나항공 (OZ)</b></div>
-            <div class="leg-row"><span>편명</span><b>OZ742</b></div>
-            <div class="leg-row"><span>날짜</span><b>2026.10.01 (목)</b></div>
-            <div class="leg-row"><span>출발</span><b>01:35 수완나품 (ICT)</b></div>
-            <div class="leg-row"><span>도착</span><b>08:55 인천 (KST)</b></div>
-            <div class="leg-row"><span>비행시간</span><b>5시간 20분</b></div>
-        </div>
-    </div>
-
-    <div class="pending" style="margin-top:20px">
-        <b>일정상 주의</b>
-        <b style="display:inline;background:#000;color:#FFF;padding:1px 6px;font-size:11px">귀국편이 자정 넘어 출발</b>
-        OZ742는 <u>10월 1일 01:35</u> 출발이다. 9월 30일 밤에 공항으로 이동해야 하고,
-        숙소 체크아웃은 9월 30일이다. <b style="display:inline">9월 26일은 10:40 도착이라 반일, 방콕에서 온전히 움직이는 날은 9.27–9.30 나흘</b>다.<br><br>
-        <b style="display:inline;background:#000;color:#FFF;padding:1px 6px;font-size:11px">가는 편이 이른 아침</b>
-        07:05 출발이면 인천공항에 05:00 전후 도착이 안전하다. 첫 공항철도로는 대기 어려우니
-        전날 이동이나 심야 교통편을 미리 정해두는 편이 낫다.<br><br>
-        방콕(ICT)은 서울(KST)보다 <b style="display:inline">2시간 느리다</b>. 현지 시계는 −2시간.
-    </div>
-</section>
-
-<!-- ================= WEATHER ================= -->
-<section>
-    <h2 class="sec-title">Weather</h2>
-    <p class="sec-sub">방콕 실시간 72시간 예보</p>
-    <div class="chart-wrap"><canvas id="wx"></canvas></div>
-    <p class="chart-note" id="wxNote">불러오는 중…</p>
-</section>
-
-<!-- ================= PLACES ================= -->
-<section>
-    <h2 class="sec-title">Places</h2>
-    <p class="sec-sub">가볼 곳</p>
-    <div class="pending">
-        <b>장소 목록 대기</b>
-        Google My Maps에 가볼 곳을 모아두면 그대로 페이지로 옮긴다.<br>
-        My Maps에서 목록을 만들고 <code>KML 내보내기</code> → <code>bangkokagent/mapinfo/</code> 에 넣어주면
-        검색·카테고리 필터가 붙은 목록으로 만든다. 이 프로젝트에 <code>kml-integrator</code> 스킬이 그 용도로 이미 있다.
-    </div>
-</section>
-
-<!-- ================= PHRASES ================= -->
-<section>
-    <h2 class="sec-title">Phrases</h2>
-    <p class="sec-sub">급할 때 쓰는 태국어</p>
-
-    <div class="tools">
-        <input class="search" id="q" type="search" placeholder="한국어 · 태국어 · 발음 검색" aria-label="구문 검색">
-        <div class="fbtns" id="cats"></div>
-    </div>
-    <div class="count" id="cnt"></div>
-    <div class="plist" id="list"></div>
-</section>
 
 <p class="source">
     날씨는 <a href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer">Open-Meteo</a> 무료 API의 방콕(13.7563, 100.5018) 실시간 예보다. 페이지를 열 때마다 새로 불러온다.<br>
-    태국어 구문은 직접 작성했다 — 공식 출처를 인용한 것이 아니므로, 현지인에게 보여줄 용도라면 한 번 검수받는 편이 안전하다.<br>
-    긴급 상황 번호와 문구는 <a href="emergency.html">EMERGENCY</a>, 준비물은 <a href="checklist.html">CHECKLIST</a>, 러닝 코스는 <a href="run-tracks.html">RUN TRACKS</a>에 있다.
+    항공편은 예약 정보 기준이며, 비행시간은 KST–ICT 2시간 시차로 계산한 값이다.<br>
+    태국어 구문과 숫자는 직접 작성했다 — 공식 출처를 인용한 것이 아니므로, 현지인에게 보여줄 용도라면 한 번 검수받는 편이 안전하다.<br>
+    긴급 번호는 <a href="emergency.html">EMERGENCY</a>, 준비물은 <a href="checklist.html">CHECKLIST</a>, 러닝 코스는 <a href="run-tracks.html">RUN TRACKS</a>.
 </p>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <script>
+function toggleMenu() {
+    document.getElementById('navMenu').classList.toggle('open');
+}
+document.addEventListener('click', function (e) {
+    const menu = document.getElementById('navMenu');
+    const toggle = document.querySelector('.menu-toggle');
+    if (!menu.contains(e.target) && !toggle.contains(e.target)) menu.classList.remove('open');
+});
+/* 배경 그래픽 패럴랙스 */
+window.addEventListener('scroll', function () {
+    const g = document.querySelector('.background-graphic');
+    if (g) g.style.transform = `translateY(${window.scrollY * 0.12}px)`;
+}, { passive: true });
+
 /* ---------------- PHRASES ---------------- */
 const PH = [
   { th:'สวัสดีครับ / ค่ะ', rm:'sawatdee khrap / kha', ko:'안녕하세요', cat:'인사' },
@@ -247,17 +356,50 @@ const PH = [
   { th:'หลงทาง', rm:'long thang', ko:'길을 잃었어요', cat:'긴급' }
 ];
 
+const NUM_TABLES = `
+<div class="number-table-card">
+  <div class="number-table-title">기본 숫자 (1–10)</div>
+  <table class="number-table">
+    <tr><td>1</td><td>หนึ่ง (nueng)</td><td>6</td><td>หก (hok)</td></tr>
+    <tr><td>2</td><td>สอง (song)</td><td>7</td><td>เจ็ด (chet)</td></tr>
+    <tr><td>3</td><td>สาม (sam)</td><td>8</td><td>แปด (paet)</td></tr>
+    <tr><td>4</td><td>สี่ (si)</td><td>9</td><td>เก้า (kao)</td></tr>
+    <tr><td>5</td><td>ห้า (ha)</td><td>10</td><td>สิบ (sip)</td></tr>
+  </table>
+</div>
+<div class="number-table-card">
+  <div class="number-table-title">십 단위 (10–100)</div>
+  <table class="number-table">
+    <tr><td>10</td><td>สิบ (sip)</td><td>60</td><td>หกสิบ (hok sip)</td></tr>
+    <tr><td>20</td><td>ยี่สิบ (yi sip)</td><td>70</td><td>เจ็ดสิบ (chet sip)</td></tr>
+    <tr><td>30</td><td>สามสิบ (sam sip)</td><td>80</td><td>แปดสิบ (paet sip)</td></tr>
+    <tr><td>40</td><td>สี่สิบ (si sip)</td><td>90</td><td>เก้าสิบ (kao sip)</td></tr>
+    <tr><td>50</td><td>ห้าสิบ (ha sip)</td><td>100</td><td>ร้อย (roi)</td></tr>
+  </table>
+  <p class="number-note">20은 규칙에서 벗어난다 — <b>สองสิบ 이 아니라 ยี่สิบ (yi sip)</b>. 21은 ยี่สิบเอ็ด (yi sip et), 끝자리 1은 หนึ่ง 이 아니라 <b>เอ็ด (et)</b>을 쓴다.</p>
+</div>
+<div class="number-table-card">
+  <div class="number-table-title">큰 단위 · 가격 (บาท)</div>
+  <table class="number-table">
+    <tr><td>100</td><td>ร้อย (roi)</td><td>20฿</td><td>ยี่สิบบาท (yi sip bat)</td></tr>
+    <tr><td>1천</td><td>พัน (phan)</td><td>50฿</td><td>ห้าสิบบาท (ha sip bat)</td></tr>
+    <tr><td>1만</td><td>หมื่น (muen)</td><td>100฿</td><td>ร้อยบาท (roi bat)</td></tr>
+    <tr><td>10만</td><td>แสน (saen)</td><td>500฿</td><td>ห้าร้อยบาท (ha roi bat)</td></tr>
+  </table>
+  <p class="number-note">฿ = 바트(บาท, bat). 노점 가격은 대개 20–150฿ 선이라 십 단위와 ร้อย 만 알아도 대화가 된다.</p>
+</div>`;
+
 (function () {
   const list = document.getElementById('list');
   const cnt  = document.getElementById('cnt');
   const q    = document.getElementById('q');
   const cats = document.getElementById('cats');
-  const all  = ['전체', ...[...new Set(PH.map(p => p.cat))]];
+  const all  = ['전체', ...[...new Set(PH.map(p => p.cat))], '숫자'];
   let active = '전체';
 
   all.forEach(c => {
     const b = document.createElement('button');
-    b.className = 'fbtn' + (c === '전체' ? ' active' : '');
+    b.className = 'filter-btn' + (c === '전체' ? ' active' : '');
     b.textContent = c;
     b.addEventListener('click', () => {
       active = c;
@@ -269,19 +411,22 @@ const PH = [
 
   function render() {
     const s = q.value.trim().toLowerCase();
-    const rows = PH.filter(p =>
+    const rows = (active === '숫자') ? [] : PH.filter(p =>
       (active === '전체' || p.cat === active) &&
       (!s || (p.ko + p.th + p.rm).toLowerCase().includes(s))
     );
-    cnt.textContent = `${rows.length} / ${PH.length} 구문`;
-    list.innerHTML = rows.length
-      ? rows.map(p => `<div class="ph">
-          <div class="th">${p.th}</div>
-          <div class="ko">${p.ko}</div>
-          <div class="rm">${p.rm}</div>
-          <div class="cat">${p.cat}</div>
-        </div>`).join('')
-      : '<div class="empty">검색 결과가 없다.</div>';
+    const showNum = (active === '전체' || active === '숫자') && !s;
+    cnt.textContent = (active === '숫자')
+      ? '숫자 표 3개'
+      : `${rows.length} / ${PH.length} 구문` + (showNum ? ' + 숫자 표 3개' : '');
+    let html = rows.map(p => `<div class="phrase-card">
+        <div class="th">${p.th}</div>
+        <div class="ko">${p.ko}</div>
+        <div class="rm">${p.rm}</div>
+        <div class="cat">${p.cat}</div>
+      </div>`).join('');
+    if (showNum) html += NUM_TABLES;
+    list.innerHTML = html || '<div class="empty">검색 결과가 없다.</div>';
   }
   q.addEventListener('input', render);
   render();
@@ -294,10 +439,8 @@ const PH = [
   try {
     const url = `https://api.open-meteo.com/v1/forecast?latitude=${LAT}&longitude=${LON}`
               + `&hourly=temperature_2m,precipitation_probability&timezone=Asia/Bangkok&forecast_days=3`;
-    const r = await fetch(url);
-    const d = await r.json();
+    const d = await (await fetch(url)).json();
     if (!d.hourly) throw new Error('bad response');
-
     const h = d.hourly;
     const labels = h.time.slice(0, 72).map(t => {
       const dt = new Date(t);
@@ -305,38 +448,32 @@ const PH = [
     });
     const temp = h.temperature_2m.slice(0, 72);
     const prec = h.precipitation_probability.slice(0, 72);
-
-    new Chart(document.getElementById('wx'), {
+    new Chart(document.getElementById('weatherChart'), {
       type: 'line',
-      data: {
-        labels,
-        datasets: [
-          { label: '기온 (°C)', data: temp, borderColor: '#198353', backgroundColor: 'rgba(25,131,83,.12)',
-            borderWidth: 2.5, pointRadius: 0, tension: .3, fill: true, yAxisID: 'y' },
-          { label: '강수확률 (%)', data: prec, borderColor: '#000', borderWidth: 1.8,
-            borderDash: [5, 4], pointRadius: 0, tension: .3, yAxisID: 'y1' }
-        ]
-      },
+      data: { labels, datasets: [
+        { label:'기온 (°C)', data:temp, borderColor:'#198353', backgroundColor:'rgba(25,131,83,.12)',
+          borderWidth:2.5, pointRadius:0, tension:.3, fill:true, yAxisID:'y' },
+        { label:'강수확률 (%)', data:prec, borderColor:'#000', borderWidth:1.8,
+          borderDash:[5,4], pointRadius:0, tension:.3, yAxisID:'y1' }
+      ]},
       options: {
-        responsive: true, maintainAspectRatio: false,
-        interaction: { mode: 'index', intersect: false },
-        plugins: {
-          legend: { labels: { font: { family: "'Courier New',monospace", size: 11 }, boxWidth: 14 } },
-          tooltip: { titleFont: { family: "'Courier New',monospace" }, bodyFont: { family: "'Courier New',monospace" } }
+        responsive:true, maintainAspectRatio:false,
+        interaction:{ mode:'index', intersect:false },
+        plugins:{
+          legend:{ labels:{ font:{ family:"'Courier New',monospace", size:11 }, boxWidth:14 } },
+          tooltip:{ titleFont:{ family:"'Courier New',monospace" }, bodyFont:{ family:"'Courier New',monospace" } }
         },
-        scales: {
-          x: { ticks: { font: { family: "'Courier New',monospace", size: 9 }, maxTicksLimit: 12 }, grid: { display: false } },
-          y:  { position: 'left',  title: { display: true, text: '°C', font: { family: "'Courier New',monospace" } },
-                ticks: { font: { family: "'Courier New',monospace", size: 10 } } },
-          y1: { position: 'right', min: 0, max: 100, grid: { drawOnChartArea: false },
-                title: { display: true, text: '%', font: { family: "'Courier New',monospace" } },
-                ticks: { font: { family: "'Courier New',monospace", size: 10 } } }
+        scales:{
+          x:{ ticks:{ font:{ family:"'Courier New',monospace", size:9 }, maxTicksLimit:12 }, grid:{ display:false } },
+          y:{ position:'left', title:{ display:true, text:'°C', font:{ family:"'Courier New',monospace" } },
+              ticks:{ font:{ family:"'Courier New',monospace", size:10 } } },
+          y1:{ position:'right', min:0, max:100, grid:{ drawOnChartArea:false },
+               title:{ display:true, text:'%', font:{ family:"'Courier New',monospace" } },
+               ticks:{ font:{ family:"'Courier New',monospace", size:10 } } }
         }
       }
     });
-
-    const tmin = Math.min(...temp), tmax = Math.max(...temp), pmax = Math.max(...prec);
-    note.textContent = `앞으로 72시간 · 기온 ${tmin}–${tmax}°C · 최고 강수확률 ${pmax}% · Open-Meteo`;
+    note.textContent = `앞으로 72시간 · 기온 ${Math.min(...temp)}–${Math.max(...temp)}°C · 최고 강수확률 ${Math.max(...prec)}% · Open-Meteo`;
   } catch (e) {
     note.textContent = '날씨를 불러오지 못했다. 네트워크를 확인하고 새로고침.';
   }
