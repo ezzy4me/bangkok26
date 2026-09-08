@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IN BKK — BANGKOK FIELD GUIDE</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+    background:#C8E2F9; color:#000;
+    font-family:'Courier New',Courier,monospace;
+    padding:34px 5% 80px; max-width:1080px; margin:0 auto;
+    -webkit-text-size-adjust:100%;
+}
+.crumb { font-size:11px; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:30px; }
+.crumb a { color:#000; text-decoration:none; border-bottom:2px solid #000; }
+.crumb a:hover { color:#146B43; border-color:#146B43; }
+.crumb i { font-style:normal; opacity:.4; margin:0 8px; }
+
+h1 {
+    font-family:Impact,'Arial Black',sans-serif; font-weight:900;
+    font-size:clamp(46px,9vw,88px); line-height:.92;
+    letter-spacing:-.05em; text-transform:uppercase;
+}
+h1 em { font-style:normal; color:#198353; }
+.tagline { margin-top:14px; font-size:13px; letter-spacing:1.5px; line-height:1.7; max-width:56ch; }
+
+/* 섹션 */
+section { margin-top:52px; }
+.sec-title {
+    font-family:Impact,'Arial Black',sans-serif; font-weight:900;
+    font-size:clamp(30px,6vw,50px); letter-spacing:-.04em;
+    text-transform:uppercase; line-height:1;
+}
+.sec-sub {
+    font-size:12px; letter-spacing:2px; text-transform:uppercase;
+    margin:8px 0 22px; padding-bottom:14px; border-bottom:3px solid #000;
+}
+a.sec-link { text-decoration:none; color:#000; display:inline-block; }
+a.sec-link:hover .sec-title { color:#146B43; }
+
+/* 카드 */
+.card { background:rgba(255,255,255,.7); border:3px solid #000; padding:24px; }
+.grid2 { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:20px; }
+
+/* FLIGHTS */
+.leg-label {
+    display:inline-block; background:#000; color:#FFF;
+    font-family:'Arial Black',sans-serif; font-size:11px;
+    letter-spacing:2px; padding:6px 11px; margin-bottom:14px;
+}
+.leg-row { display:flex; justify-content:space-between; gap:12px; padding:8px 0; border-bottom:1px dashed rgba(0,0,0,.25); font-size:12.5px; }
+.leg-row:last-child { border-bottom:none; }
+.leg-row b { font-weight:700; }
+.leg-time { font-family:Impact,'Arial Black',sans-serif; font-size:26px; letter-spacing:-.02em; line-height:1.1; margin-top:12px; }
+
+/* 대기 상태 */
+.pending {
+    border:3px dashed #000; background:rgba(255,255,255,.4);
+    padding:20px; font-size:12.5px; line-height:1.75;
+}
+.pending b { font-family:'Arial Black',sans-serif; font-size:11px; letter-spacing:1.5px; display:block; margin-bottom:7px; }
+.pending code { background:#000; color:#FFF; padding:1px 5px; font-size:11px; }
+
+/* WEATHER */
+.chart-wrap { background:rgba(255,255,255,.7); border:3px solid #000; padding:18px; height:340px; }
+.chart-note { font-size:11px; letter-spacing:1px; margin-top:9px; opacity:.8; }
+
+/* PHRASES */
+.tools { display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-bottom:18px; }
+.search {
+    flex:1 1 220px; border:3px solid #000; background:rgba(255,255,255,.8);
+    padding:11px 13px; font-family:'Courier New',monospace; font-size:13px;
+}
+.search:focus { outline:3px solid #198353; outline-offset:2px; }
+.fbtns { display:flex; flex-wrap:wrap; gap:8px; }
+.fbtn {
+    border:3px solid #000; background:rgba(255,255,255,.6);
+    font-family:'Arial Black',sans-serif; font-size:10.5px; letter-spacing:1.2px;
+    text-transform:uppercase; padding:9px 12px; cursor:pointer; transition:all .2s;
+}
+.fbtn:hover { background:#000; color:#FFF; }
+.fbtn.active { background:#000; color:#FFF; }
+
+.plist { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:16px; }
+.ph {
+    background:rgba(255,255,255,.7); border:3px solid #000; padding:18px;
+    transition:transform .2s ease, box-shadow .2s ease;
+}
+.ph:hover { transform:translateY(-3px); box-shadow:6px 6px 0 #000; }
+.ph .th {
+    font-family:"Noto Serif Thai","Thonburi","Sukhumvit Set",Georgia,serif;
+    font-size:23px; line-height:1.4; color:#146B43;
+}
+.ph .ko { font-size:13.5px; font-weight:700; margin-top:7px; letter-spacing:.3px; }
+.ph .rm { font-size:11.5px; opacity:.7; margin-top:3px; letter-spacing:.5px; }
+.ph .cat {
+    display:inline-block; margin-top:11px; border:2px solid #000;
+    font-size:9.5px; letter-spacing:1.2px; text-transform:uppercase; padding:3px 7px;
+}
+.count { font-size:11px; letter-spacing:1.5px; margin-bottom:14px; opacity:.8; }
+.empty { grid-column:1/-1; padding:26px; text-align:center; font-size:13px; border:3px dashed #000; }
+
+.source { margin-top:52px; font-size:11px; line-height:1.85; letter-spacing:.8px; border-top:3px solid #000; padding-top:18px; opacity:.85; }
+.source a { color:#146B43; }
+
+@media (max-width:768px) {
+    body { padding:26px 5% 60px; }
+    .chart-wrap { height:280px; }
+    .plist, .grid2 { grid-template-columns:1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="crumb">
+    THAILAND <i>/</i> BANGKOK <i>/</i> <a href="index.html">FIELD GUIDE</a> <i>/</i> IN BKK
+</div>
+
+<h1>IN<br><em>BKK</em></h1>
+<p class="tagline">항공 · 날씨 · 장소 · 태국어. 현지에서 열어보는 페이지다.</p>
+
+<!-- ================= FLIGHTS ================= -->
+<section>
+    <h2 class="sec-title">Flights</h2>
+    <p class="sec-sub">2026.9.26 – 10.1</p>
+    <div class="pending">
+        <b>항공편 정보 대기</b>
+        예약하신 편명·시간을 알려주시면 채워 넣는다. 필요한 것: <code>항공사</code> <code>편명</code> <code>날짜</code> <code>출발-도착 시각</code> (가는 편/오는 편 각각).
+    </div>
+</section>
+
+<!-- ================= WEATHER ================= -->
+<section>
+    <h2 class="sec-title">Weather</h2>
+    <p class="sec-sub">방콕 실시간 72시간 예보</p>
+    <div class="chart-wrap"><canvas id="wx"></canvas></div>
+    <p class="chart-note" id="wxNote">불러오는 중…</p>
+</section>
+
+<!-- ================= PLACES ================= -->
+<section>
+    <h2 class="sec-title">Places</h2>
+    <p class="sec-sub">가볼 곳</p>
+    <div class="pending">
+        <b>장소 목록 대기</b>
+        Google My Maps에 가볼 곳을 모아두면 그대로 페이지로 옮긴다.<br>
+        My Maps에서 목록을 만들고 <code>KML 내보내기</code> → <code>bangkokagent/mapinfo/</code> 에 넣어주면
+        검색·카테고리 필터가 붙은 목록으로 만든다. 이 프로젝트에 <code>kml-integrator</code> 스킬이 그 용도로 이미 있다.
+    </div>
+</section>
+
+<!-- ================= PHRASES ================= -->
+<section>
+    <h2 class="sec-title">Phrases</h2>
+    <p class="sec-sub">급할 때 쓰는 태국어</p>
+
+    <div class="tools">
+        <input class="search" id="q" type="search" placeholder="한국어 · 태국어 · 발음 검색" aria-label="구문 검색">
+        <div class="fbtns" id="cats"></div>
+    </div>
+    <div class="count" id="cnt"></div>
+    <div class="plist" id="list"></div>
+</section>
+
+<p class="source">
+    날씨는 <a href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer">Open-Meteo</a> 무료 API의 방콕(13.7563, 100.5018) 실시간 예보다. 페이지를 열 때마다 새로 불러온다.<br>
+    태국어 구문은 직접 작성했다 — 공식 출처를 인용한 것이 아니므로, 현지인에게 보여줄 용도라면 한 번 검수받는 편이 안전하다.<br>
+    긴급 상황 번호와 문구는 <a href="emergency.html">EMERGENCY</a>, 준비물은 <a href="checklist.html">CHECKLIST</a>, 러닝 코스는 <a href="run-tracks.html">RUN TRACKS</a>에 있다.
+</p>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script>
+/* ---------------- PHRASES ---------------- */
+const PH = [
+  { th:'สวัสดีครับ / ค่ะ', rm:'sawatdee khrap / kha', ko:'안녕하세요', cat:'인사' },
+  { th:'ขอบคุณครับ / ค่ะ', rm:'khopkhun khrap / kha', ko:'감사합니다', cat:'인사' },
+  { th:'ขอโทษครับ / ค่ะ', rm:'khothot khrap / kha', ko:'죄송합니다 / 저기요', cat:'인사' },
+  { th:'ไม่เป็นไร', rm:'mai pen rai', ko:'괜찮아요', cat:'인사' },
+  { th:'ไม่เข้าใจ', rm:'mai khao chai', ko:'이해하지 못했어요', cat:'인사' },
+  { th:'พูดอังกฤษได้ไหม', rm:'phut angkrit dai mai', ko:'영어 하실 수 있나요?', cat:'인사' },
+
+  { th:'เอาอันนี้', rm:'ao an nee', ko:'이거 주세요', cat:'주문' },
+  { th:'ไม่เผ็ด', rm:'mai phet', ko:'안 맵게 해주세요', cat:'주문' },
+  { th:'เผ็ดน้อย', rm:'phet noi', ko:'조금만 맵게', cat:'주문' },
+  { th:'ไม่ใส่ผักชี', rm:'mai sai phak chi', ko:'고수 넣지 마세요', cat:'주문' },
+  { th:'น้ำเปล่า', rm:'nam plao', ko:'생수', cat:'주문' },
+  { th:'ไม่ใส่น้ำแข็ง', rm:'mai sai nam khaeng', ko:'얼음 빼주세요', cat:'주문' },
+  { th:'อร่อย', rm:'aroi', ko:'맛있어요', cat:'주문' },
+  { th:'เช็คบิล', rm:'chek bin', ko:'계산서 주세요', cat:'주문' },
+
+  { th:'เท่าไหร่', rm:'tao rai', ko:'얼마예요?', cat:'계산' },
+  { th:'แพงเกินไป', rm:'phaeng koen pai', ko:'너무 비싸요', cat:'계산' },
+  { th:'ลดได้ไหม', rm:'lot dai mai', ko:'깎아 주실 수 있나요?', cat:'계산' },
+  { th:'จ่ายบัตรได้ไหม', rm:'chai bat dai mai', ko:'카드로 결제 되나요?', cat:'계산' },
+  { th:'เงินสด', rm:'ngoen sot', ko:'현금', cat:'계산' },
+  { th:'ขอใบเสร็จ', rm:'kho bai set', ko:'영수증 주세요', cat:'계산' },
+
+  { th:'ไปที่นี่', rm:'pai thi nee', ko:'여기로 가주세요', cat:'이동' },
+  { th:'กดมิเตอร์ด้วย', rm:'kot mitoe duai', ko:'미터기 켜주세요', cat:'이동' },
+  { th:'จอดที่นี่', rm:'chot thi nee', ko:'여기서 세워주세요', cat:'이동' },
+  { th:'สถานีรถไฟฟ้า', rm:'sathanee rot fai fa', ko:'전철역 (BTS/MRT)', cat:'이동' },
+  { th:'สนามบิน', rm:'sanam bin', ko:'공항', cat:'이동' },
+  { th:'ไกลไหม', rm:'klai mai', ko:'먼가요?', cat:'이동' },
+  { th:'ห้องน้ำอยู่ไหน', rm:'hong nam yu nai', ko:'화장실 어디예요?', cat:'이동' },
+
+  { th:'มีไซส์อื่นไหม', rm:'mee size uen mai', ko:'다른 사이즈 있나요?', cat:'쇼핑' },
+  { th:'ลองได้ไหม', rm:'long dai mai', ko:'입어봐도 되나요?', cat:'쇼핑' },
+  { th:'ขอถุง', rm:'kho thung', ko:'봉투 주세요', cat:'쇼핑' },
+  { th:'ดูก่อนนะ', rm:'du kon na', ko:'좀 볼게요', cat:'쇼핑' },
+
+  { th:'ช่วยด้วย', rm:'chuay duay', ko:'도와주세요', cat:'긴급' },
+  { th:'เรียกรถพยาบาล', rm:'riak rot phayaban', ko:'구급차를 불러주세요', cat:'긴급' },
+  { th:'โรงพยาบาล', rm:'rong phayaban', ko:'병원', cat:'긴급' },
+  { th:'ตำรวจ', rm:'tamruat', ko:'경찰', cat:'긴급' },
+  { th:'ผมเป็นคนเกาหลี', rm:'phom pen khon kaoli', ko:'저는 한국인입니다', cat:'긴급' },
+  { th:'แพ้ยา', rm:'phae ya', ko:'약 알레르기가 있어요', cat:'긴급' },
+  { th:'หลงทาง', rm:'long thang', ko:'길을 잃었어요', cat:'긴급' }
+];
+
+(function () {
+  const list = document.getElementById('list');
+  const cnt  = document.getElementById('cnt');
+  const q    = document.getElementById('q');
+  const cats = document.getElementById('cats');
+  const all  = ['전체', ...[...new Set(PH.map(p => p.cat))]];
+  let active = '전체';
+
+  all.forEach(c => {
+    const b = document.createElement('button');
+    b.className = 'fbtn' + (c === '전체' ? ' active' : '');
+    b.textContent = c;
+    b.addEventListener('click', () => {
+      active = c;
+      [...cats.children].forEach(x => x.classList.toggle('active', x === b));
+      render();
+    });
+    cats.appendChild(b);
+  });
+
+  function render() {
+    const s = q.value.trim().toLowerCase();
+    const rows = PH.filter(p =>
+      (active === '전체' || p.cat === active) &&
+      (!s || (p.ko + p.th + p.rm).toLowerCase().includes(s))
+    );
+    cnt.textContent = `${rows.length} / ${PH.length} 구문`;
+    list.innerHTML = rows.length
+      ? rows.map(p => `<div class="ph">
+          <div class="th">${p.th}</div>
+          <div class="ko">${p.ko}</div>
+          <div class="rm">${p.rm}</div>
+          <div class="cat">${p.cat}</div>
+        </div>`).join('')
+      : '<div class="empty">검색 결과가 없다.</div>';
+  }
+  q.addEventListener('input', render);
+  render();
+})();
+
+/* ---------------- WEATHER ---------------- */
+(async function () {
+  const LAT = 13.7563, LON = 100.5018;
+  const note = document.getElementById('wxNote');
+  try {
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${LAT}&longitude=${LON}`
+              + `&hourly=temperature_2m,precipitation_probability&timezone=Asia/Bangkok&forecast_days=3`;
+    const r = await fetch(url);
+    const d = await r.json();
+    if (!d.hourly) throw new Error('bad response');
+
+    const h = d.hourly;
+    const labels = h.time.slice(0, 72).map(t => {
+      const dt = new Date(t);
+      return `${dt.getMonth() + 1}/${dt.getDate()} ${String(dt.getHours()).padStart(2, '0')}시`;
+    });
+    const temp = h.temperature_2m.slice(0, 72);
+    const prec = h.precipitation_probability.slice(0, 72);
+
+    new Chart(document.getElementById('wx'), {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [
+          { label: '기온 (°C)', data: temp, borderColor: '#198353', backgroundColor: 'rgba(25,131,83,.12)',
+            borderWidth: 2.5, pointRadius: 0, tension: .3, fill: true, yAxisID: 'y' },
+          { label: '강수확률 (%)', data: prec, borderColor: '#000', borderWidth: 1.8,
+            borderDash: [5, 4], pointRadius: 0, tension: .3, yAxisID: 'y1' }
+        ]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        interaction: { mode: 'index', intersect: false },
+        plugins: {
+          legend: { labels: { font: { family: "'Courier New',monospace", size: 11 }, boxWidth: 14 } },
+          tooltip: { titleFont: { family: "'Courier New',monospace" }, bodyFont: { family: "'Courier New',monospace" } }
+        },
+        scales: {
+          x: { ticks: { font: { family: "'Courier New',monospace", size: 9 }, maxTicksLimit: 12 }, grid: { display: false } },
+          y:  { position: 'left',  title: { display: true, text: '°C', font: { family: "'Courier New',monospace" } },
+                ticks: { font: { family: "'Courier New',monospace", size: 10 } } },
+          y1: { position: 'right', min: 0, max: 100, grid: { drawOnChartArea: false },
+                title: { display: true, text: '%', font: { family: "'Courier New',monospace" } },
+                ticks: { font: { family: "'Courier New',monospace", size: 10 } } }
+        }
+      }
+    });
+
+    const tmin = Math.min(...temp), tmax = Math.max(...temp), pmax = Math.max(...prec);
+    note.textContent = `앞으로 72시간 · 기온 ${tmin}–${tmax}°C · 최고 강수확률 ${pmax}% · Open-Meteo`;
+  } catch (e) {
+    note.textContent = '날씨를 불러오지 못했다. 네트워크를 확인하고 새로고침.';
+  }
+})();
+</script>
+
+</body>
+</html>
