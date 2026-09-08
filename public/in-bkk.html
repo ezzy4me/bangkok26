@@ -14,8 +14,9 @@ body {
 
 /* ── 배경 그래픽 ── */
 .background-graphic {
-    position:absolute; right:5%; top:3%;
-    width:200px; height:auto; z-index:1;
+    position:absolute; right:5%; top:6px;
+    width:auto; max-width:130px; max-height:180px;
+    height:auto; z-index:1;
     opacity:.4; mix-blend-mode:multiply;
     transition:transform .1s ease-out;
 }
@@ -197,7 +198,7 @@ a.section-title-link:hover .section-title { color:#146B43; }
 
 @media (max-width:768px) {
     body { padding:30px 12px 60px; }
-    .background-graphic { width:120px; opacity:.28; }
+    .background-graphic { max-width:88px; max-height:120px; opacity:.28; }
     .menu-toggle { font-size:46px; }
     header { padding-left:8px; margin-bottom:40px; }
     .container { padding:0 8px; }
@@ -209,7 +210,7 @@ a.section-title-link:hover .section-title { color:#146B43; }
 </head>
 <body>
 
-<img src="bangkok-skyline.png" class="background-graphic" alt="" loading="lazy">
+<img src="bg-in-bkk.png" class="background-graphic" alt="" loading="lazy">
 
 <button class="menu-toggle" onclick="toggleMenu()" aria-label="메뉴 열기">−</button>
 <nav class="nav-menu-overlay" id="navMenu">

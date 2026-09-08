@@ -8,6 +8,7 @@
 * { margin:0; padding:0; box-sizing:border-box; }
 
 body {
+    position:relative; overflow-x:hidden;
     background: #C8E2F9;
     color: #000;
     font-family: 'Courier New', Courier, monospace;
@@ -30,6 +31,7 @@ h1 {
     letter-spacing: -.05em;
     text-transform: uppercase;
 }
+h1 { color: #C44536; }
 h1 em { font-style: normal; color: #C44536; }
 .tagline { margin-top: 14px; font-size: 13px; letter-spacing: 1.5px; line-height: 1.7; max-width: 54ch; }
 
@@ -146,16 +148,69 @@ h1 em { font-style: normal; color: #C44536; }
     .row { flex-direction: column; gap: 3px; }
     .row .v { text-align: left; }
 }
+
+/* ── 배경 그래픽 ── */
+.background-graphic {
+    position:absolute; right:5%; top:6px;
+    width:auto; max-width:130px; max-height:180px;
+    height:auto; z-index:1;
+    opacity:.4; mix-blend-mode:multiply;
+    pointer-events:none; transition:transform .1s ease-out;
+}
+
+/* 배경 그래픽보다 콘텐츠를 위로 */
+body > *:not(.background-graphic):not(.menu-toggle):not(.nav-menu-overlay):not(script) {
+    position: relative;
+    z-index: 5;
+}
+/* ── 햄버거 네비 ── */
+.menu-toggle {
+    position:fixed; right:5%; top:5%; z-index:200;
+    background:none; border:none; color:#198353;
+    font-size:60px; font-weight:300; line-height:1;
+    letter-spacing:-.1em; cursor:pointer; padding:0;
+    font-family:'Arial',sans-serif; transition:all .3s ease;
+}
+.menu-toggle:hover { color:#000; }
+.nav-menu-overlay {
+    position:fixed; right:-300px; top:0; width:250px; height:100vh;
+    z-index:150; display:flex; flex-direction:column;
+    padding:80px 30px 30px; gap:15px; transition:right .4s ease;
+}
+.nav-menu-overlay.open { right:0; }
+.nav-menu-overlay a {
+    font-family:'Arial Black',sans-serif; font-weight:900;
+    font-size:18px; text-transform:uppercase; color:#000;
+    text-decoration:none; padding:8px 0; transition:all .3s;
+}
+.nav-menu-overlay a:hover { color:#198353; }
+.nav-menu-overlay a.active { color:#198353; text-decoration:underline; text-decoration-thickness:3px; }
+@media (max-width:768px) {
+    .background-graphic { max-width:88px; max-height:120px; opacity:.28; }
+    .menu-toggle { right:3%; top:3%; font-size:46px; }
+}
 </style>
 </head>
 <body>
+
+<img src="bg-emergency.png" class="background-graphic" alt="" loading="lazy">
+
+<button class="menu-toggle" onclick="toggleMenu()" aria-label="메뉴 열기">−</button>
+<nav class="nav-menu-overlay" id="navMenu">
+    <a href="index.html">MAIN</a>
+    <a href="run-tracks.html">RUN TRACKS</a>
+    <a href="in-bkk.html">IN BKK</a>
+    <a href="checklist.html">CHECKLIST</a>
+    <a href="emergency.html" class="active">EMERGENCY</a>
+</nav>
+
 
 <div class="crumb">
     THAILAND <i>/</i> BANGKOK <i>/</i> <a href="index.html">FIELD GUIDE</a> <i>/</i> EMERGENCY
 </div>
 
-<h1>EMER<br><em>GENCY</em></h1>
-<p class="tagline">태국 긴급번호는 짧다. 전부 무료이고 휴대폰에서 바로 걸린다. 번호를 누르면 전화 앱이 열린다.</p>
+<h1><em>EMERGENCY</em></h1>
+<p class="tagline">전부 무료이고 휴대폰에서 바로 걸린다. 번호를 누르면 전화 앱이 열린다.</p>
 
 <div class="hotlines">
     <a class="hot" href="tel:191"><b>191</b><span>Police</span><i>경찰 · 범죄 · 사고</i></a>
@@ -258,9 +313,21 @@ h1 em { font-style: normal; color: #C44536; }
 <p class="source">
     긴급번호(191 · 1669 · 199 · 1155 · 1111)와 TAT 연락처는 <a href="https://www.tourismthailand.org/Plan-Your-Trip/Useful-Call" target="_blank" rel="noopener noreferrer">태국관광청(TAT) 공식 안내</a>에서 2026-08-19 확인했다.<br>
     대사관 정보는 <a href="https://overseas.mofa.go.kr/th-ko/index.do" target="_blank" rel="noopener noreferrer">주태국 대한민국 대사관</a> 공식 사이트 기준이다. TAT 목록에는 대사관 번호가 구번호로 실려 있어 대사관 공식값을 사용했다.<br>
-    Bumrungrad 연락처·주소는 <a href="https://www.bumrungrad.com/en/contact-us" target="_blank" rel="noopener noreferrer">병원 공식 페이지</a>에서 확인했다. 확인되지 않은 번호는 싣지 않았다.<br>
-    번호는 바뀔 수 있다. 출발 전 한 번 더 확인하기를 권한다.
+    Bumrungrad 연락처·주소는 <a href="https://www.bumrungrad.com/en/contact-us" target="_blank" rel="noopener noreferrer">병원 공식 페이지</a>에서 확인했다.
 </p>
+
+
+<script>
+function toggleMenu() { document.getElementById('navMenu').classList.toggle('open'); }
+document.addEventListener('click', function (e) {
+    const m = document.getElementById('navMenu'), t = document.querySelector('.menu-toggle');
+    if (!m.contains(e.target) && !t.contains(e.target)) m.classList.remove('open');
+});
+window.addEventListener('scroll', function () {
+    const g = document.querySelector('.background-graphic');
+    if (g) g.style.transform = `translateY(${window.scrollY * 0.12}px)`;
+}, { passive: true });
+</script>
 
 </body>
 </html>
