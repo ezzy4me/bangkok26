@@ -164,6 +164,9 @@ a.section-title-link:hover .section-title { color:#146B43; }
     font-family:'Arial Black',sans-serif; font-size:9.5px; letter-spacing:1.2px; padding:3px 7px;
 }
 
+.place-card.near { border-color:#198353; }
+.place-card.near .pc { color:#146B43; font-weight:700; }
+
 /* 숫자 테이블 */
 .number-table-card {
     grid-column:1/-1;
@@ -329,104 +332,104 @@ window.addEventListener('scroll', function () {
 
 /* ---------------- PLACES ---------------- */
 const PL = [
-  {n:"LUMIKAN GALLERY",r:5,v:4,c:"상점",g:"쇼핑"},
-  {n:"Pizzeria Mazzie",r:4.4,v:535,c:"피자 전문점",g:"양식"},
-  {n:"Pad Thai Narok Taek",r:4.4,v:1068,c:"국수 전문점",g:"국수"},
-  {n:"바미 콘새리",r:4.4,v:2618,c:"국수 전문점",g:"국수"},
-  {n:"Prime Burger Central Park",r:4.7,v:514,c:"햄버거 전문점",g:"양식"},
-  {n:"Simon Burger @Luenrit Yaowarat",r:5,v:64,c:"햄버거 전문점",g:"양식"},
-  {n:"크라운 플라자 방콕 룸피니 파크",r:4.4,v:2934,c:"5성급 호텔",g:"기타"},
-  {n:"1981 Soul&Sold",r:4.4,v:279,c:"쇼핑몰",g:"쇼핑"},
-  {n:"The 66 Cottage",r:4.4,v:1183,c:"카페",g:"카페"},
-  {n:"YELLOW ROOM",r:4.4,v:305,c:"술집",g:"술집"},
-  {n:"Kam’s Roast (ICONSIAM)",r:4.4,v:895,c:"중국 음식점",g:"중식·일식"},
-  {n:"수파니가 이팅 룸",r:4.5,v:2914,c:"태국 음식점",g:"태국"},
-  {n:"KAZE Japanese grove dining & Sake",r:4.9,v:217,c:"일본 음식점",g:"중식·일식"},
-  {n:"Charm-To by Chef Sod / 참또 국수",r:4.9,v:131,c:"국수 전문점",g:"국수"},
-  {n:"Delia",r:4.8,v:307,c:"멕시코 음식점",g:"양식"},
-  {n:"Supanniga Eating Room, Sathorn 10",r:4.5,v:1435,c:"태국 음식점",g:"태국"},
-  {n:"La Dotta Pasta Bar",r:4.6,v:503,c:"이탈리아 음식점",g:"양식"},
-  {n:"Por. Pochaya",r:4.7,v:513,c:"태국 음식점",g:"태국"},
-  {n:"반쏨땀 사톤점",r:4.4,v:3761,c:"태국 음식점",g:"태국"},
-  {n:"หมี่บ้านเอง | Mhee Baan Eang",r:4.6,v:48,c:"태국 음식점",g:"태국"},
-  {n:"Sam Lor",r:4.3,v:564,c:"태국 음식점",g:"태국"},
-  {n:"진저팜 키친 (아이콘시암)",r:4.7,v:1106,c:"태국 음식점",g:"태국"},
-  {n:"Lim Lao Ngow Fishball Noodle",r:4.3,v:1251,c:"국수 전문점",g:"국수"},
-  {n:"Kam's Roast (centralwOrld)",r:4.3,v:2107,c:"중국 음식점",g:"중식·일식"},
-  {n:"Plu",r:4.5,v:1364,c:"태국 음식점",g:"태국"},
-  {n:"Sae Phun ข้าวหน้าไก่แซ่พุ้น",r:4.6,v:1364,c:"아시아 레스토랑",g:"태국"},
-  {n:"Aunglo by Yangrak",r:4.5,v:824,c:"아시아 레스토랑",g:"태국"},
-  {n:"Jim Thompson, A Thai Restaurant",r:4.8,v:4273,c:"태국 음식점",g:"태국"},
-  {n:"ร้านแจ่ม: Jamn_Bkk",r:4.7,v:93,c:"임시 휴업",g:"태국",x:1},
-  {n:"레 라오",r:4.5,v:954,c:"태국 음식점",g:"태국"},
-  {n:"프라야 다이닝",r:4.5,v:163,c:"태국 음식점",g:"태국"},
-  {n:"롱롯",r:4.7,v:4876,c:"임시 휴업",g:"태국",x:1},
-  {n:"K. Panich Sticky Rice",r:4.4,v:3169,c:"디저트 전문점",g:"카페"},
-  {n:"Ten Suns",r:4.6,v:518,c:"중국 국수류 전문점",g:"국수"},
-  {n:"센트럴 엠버시",r:4.5,v:13081,c:"쇼핑몰",g:"쇼핑"},
-  {n:"센트럴 월드",r:4.5,v:78704,c:"쇼핑몰",g:"쇼핑"},
-  {n:"쭐라롱껀 대학교",r:4.7,v:1862,c:"공립대학교",g:"기타"},
-  {n:"코모 메트로폴리탄 방콕",r:4.7,v:1340,c:"5성급 호텔",g:"기타"},
-  {n:"레 라오 (2호점)",r:4.5,v:2581,c:"태국 음식점",g:"태국"},
-  {n:"Karun Thai Tea ICONSIAM",r:4.4,v:95,c:"카페",g:"카페"},
-  {n:"Karun Thai Tea Park Silom",r:4.2,v:43,c:"카페",g:"카페"},
-  {n:"짜런쌩 씰롬",r:4.4,v:4622,c:"태국 음식점",g:"태국"},
-  {n:"The Japanese Highball Bar 1923 Krung Thep Thonglor",r:4.9,v:470,c:"술집",g:"술집"},
-  {n:"ALLO HOUSE",r:4.4,v:220,c:"커피숍/커피 전문점",g:"카페"},
-  {n:"Giglio Trattoria Fiorentina",r:4.5,v:809,c:"이탈리아 음식점",g:"양식"},
-  {n:"FV",r:4.5,v:483,c:"카페",g:"카페"},
-  {n:"A Pink Rabbit + Bob",r:4.5,v:972,c:"케이크 전문점",g:"카페"},
-  {n:"Someday In Copenhagen",r:4.5,v:273,c:"커피숍/커피 전문점",g:"카페"},
-  {n:"The Office Thonglor",r:4.2,v:577,c:"카페",g:"카페"},
-  {n:"몬 놈쏫",r:4.4,v:6297,c:"제과점",g:"카페"},
-  {n:"사니스 방콕",r:4.5,v:3740,c:"카페",g:"카페"},
-  {n:"히어 하이",r:4.4,v:3982,c:"해산물 요리 전문식당",g:"태국"},
-  {n:"와타나 파닛",r:4.2,v:4822,c:"태국 음식점",g:"태국"},
-  {n:"룽르엉",r:4.4,v:9368,c:"국수 전문점",g:"국수"},
-  {n:"노스이스트",r:4.4,v:4049,c:"태국 음식점",g:"태국"},
-  {n:"히어 하이 시암 파라곤점",r:4.2,v:408,c:"아시아 레스토랑",g:"태국"},
-  {n:"깝카우 깝쁠라",r:4.1,v:176,c:"태국 음식점",g:"태국"},
-  {n:"크루아압쏜 빠뚜피점",r:4.9,v:3102,c:"태국 음식점",g:"태국"},
-  {n:"롱씨포차나",r:4.4,v:1872,c:"태국 음식점",g:"태국"},
-  {n:"EAGLE NEST Rooftop Bar",r:4.3,v:1763,c:"술집",g:"술집"},
-  {n:"BOONSIRI Thaifood Bangkok",r:4.7,v:622,c:"태국 음식점",g:"태국"},
-  {n:"팁사마이",r:4.2,v:12615,c:"국수 전문점",g:"국수"},
-  {n:"쿤댕 꾸어이짭 유안(끈적국수)",r:4.4,v:4072,c:"국수 전문점",g:"국수"},
-  {n:"Mug jee",r:4.6,v:336,c:"술집",g:"술집"},
-  {n:"Lost in Thaislation",r:4.8,v:261,c:"술집",g:"술집"},
-  {n:"마담 무써",r:4.3,v:3245,c:"태국 음식점",g:"태국"},
-  {n:"팁싸마이 아이콘시암점",r:3.9,v:1182,c:"태국 음식점",g:"태국"},
-  {n:"크루아 압쏜 딘소점",r:4.3,v:3932,c:"태국 음식점",g:"태국"},
-  {n:"Tor-Tom-Ton",r:4.2,v:256,c:"태국 음식점",g:"태국"},
-  {n:"Nai Soie Beef Noodle",r:3.9,v:3759,c:"국수 전문점",g:"국수"},
-  {n:"찌라옌타포 (어묵국수)",r:4.3,v:637,c:"중국 국수류 전문점",g:"국수"},
-  {n:"까이텃 쩨끼 (폴로 닭튀김)",r:4.3,v:3835,c:"태국 음식점",g:"태국"},
-  {n:"e-ga LAB Dusit Central Park",r:4.3,v:28,c:"태국 음식점",g:"태국"},
-  {n:"Moo Moo Eatery",r:4.6,v:439,c:"태국 음식점",g:"태국"},
-  {n:"크루아 압쏜 원방콕점",r:4.6,v:355,c:"태국 음식점",g:"태국"},
-  {n:"쏨분 씨푸드",r:4.2,v:6660,c:"해산물 요리 전문식당",g:"태국"},
-  {n:"On Lok Yun",r:4.5,v:2326,c:"아침식사 전문 식당",g:"카페"},
-  {n:"싯 앤 원더",r:4.5,v:2014,c:"태국 음식점",g:"태국"},
-  {n:"Beast & Butter : Burgers & Beers (Thong Lo)",r:4.6,v:974,c:"햄버거 전문점",g:"양식"},
-  {n:"149 Sathon Soi 12 Alley",r:null,v:null,c:"주소",g:"기타"},
-  {n:"나이엑 롤 누들",r:4.4,v:4813,c:"국수 전문점",g:"국수"},
-  {n:"Barney’s Burger Joint Sukhumvit 23",r:4.7,v:662,c:"햄버거 전문점",g:"양식"},
-  {n:"SURIYA COFFEE (WAT KLANG MARKET)",r:4.6,v:420,c:"커피숍/커피 전문점",g:"카페"},
-  {n:"홍씨앙꽁",r:4.4,v:4191,c:"카페",g:"카페"},
-  {n:"GLIG CAFE",r:4.5,v:607,c:"카페",g:"카페"},
-  {n:"빠톰 오가닉 리빙",r:4.2,v:1572,c:"카페",g:"카페"},
-  {n:"No Drama Burger - Bangkok Premium Smash Burger",r:4.5,v:415,c:"햄버거 전문점",g:"양식"},
-  {n:"The Toast Lady",r:4.7,v:149,c:"아침식사 전문 식당",g:"카페"},
-  {n:"팟타이 파이 타 루",r:4.1,v:1787,c:"태국 음식점",g:"태국"},
-  {n:"Boonlert Egg noodle",r:4.4,v:545,c:"중국 국수류 전문점",g:"국수"},
-  {n:"Bangkok Heightz Rooftop (Restaurant & Bar 39th floor)",r:4.8,v:3279,c:"루프탑 바",g:"술집"},
-  {n:"The Meatchop Butcher & Spirits",r:4.7,v:617,c:"스테이크 전문점",g:"양식"},
-  {n:"Chenin Restaurant",r:4.6,v:1648,c:"양식 레스토랑",g:"양식"},
-  {n:"PST Bangkok (Pizza Studio Tamaki)",r:4.2,v:531,c:"피자 전문점",g:"양식"},
-  {n:"Skyline Film at River City Bangkok",r:4.4,v:25,c:"야외 영화관",g:"기타"},
-  {n:"애드히어 블루스바",r:4.6,v:1274,c:"재즈·블루스 바",g:"술집"},
-  {n:"꽝시푸드",r:4.4,v:4572,c:"해산물 요리 전문식당",g:"태국"},
-  {n:"비터맨",r:4.2,v:1784,c:"양식 레스토랑",g:"양식"}
+  {n:"LUMIKAN GALLERY",r:5,v:4,c:"상점",g:"쇼핑",d:4865},
+  {n:"Pizzeria Mazzie",r:4.4,v:535,c:"피자 전문점",g:"양식",d:5364},
+  {n:"Pad Thai Narok Taek",r:4.4,v:1068,c:"국수 전문점",g:"국수",d:4020},
+  {n:"바미 콘새리",r:4.4,v:2618,c:"국수 전문점",g:"국수",d:4887},
+  {n:"Prime Burger Central Park",r:4.7,v:514,c:"햄버거 전문점",g:"양식",d:296},
+  {n:"Simon Burger @Luenrit Yaowarat",r:5,v:64,c:"햄버거 전문점",g:"양식",d:3601},
+  {n:"크라운 플라자 방콕 룸피니 파크",r:4.4,v:2934,c:"5성급 호텔",g:"기타",d:0},
+  {n:"1981 Soul&Sold",r:4.4,v:279,c:"쇼핑몰",g:"쇼핑",d:8464},
+  {n:"The 66 Cottage",r:4.4,v:1183,c:"카페",g:"카페",d:9536},
+  {n:"YELLOW ROOM",r:4.4,v:305,c:"술집",g:"술집",d:9599},
+  {n:"Kam’s Roast (ICONSIAM)",r:4.4,v:895,c:"중국 음식점",g:"중식·일식",d:2697},
+  {n:"수파니가 이팅 룸",r:4.5,v:2914,c:"태국 음식점",g:"태국",d:4944},
+  {n:"KAZE Japanese grove dining & Sake",r:4.9,v:217,c:"일본 음식점",g:"중식·일식",d:1803},
+  {n:"Charm-To by Chef Sod / 참또 국수",r:4.9,v:131,c:"국수 전문점",g:"국수",d:1594},
+  {n:"Delia",r:4.8,v:307,c:"멕시코 음식점",g:"양식",d:2840},
+  {n:"Supanniga Eating Room, Sathorn 10",r:4.5,v:1435,c:"태국 음식점",g:"태국",d:1117},
+  {n:"La Dotta Pasta Bar",r:4.6,v:503,c:"이탈리아 음식점",g:"양식",d:353},
+  {n:"Por. Pochaya",r:4.7,v:513,c:"태국 음식점",g:"태국",d:4595},
+  {n:"반쏨땀 사톤점",r:4.4,v:3761,c:"태국 음식점",g:"태국",d:1862},
+  {n:"หมี่บ้านเอง | Mhee Baan Eang",r:4.6,v:48,c:"태국 음식점",g:"태국",d:379},
+  {n:"Sam Lor",r:4.3,v:564,c:"태국 음식점",g:"태국",d:2108},
+  {n:"진저팜 키친 (아이콘시암)",r:4.7,v:1106,c:"태국 음식점",g:"태국",d:2665},
+  {n:"Lim Lao Ngow Fishball Noodle",r:4.3,v:1251,c:"국수 전문점",g:"국수",d:2818},
+  {n:"Kam's Roast (centralwOrld)",r:4.3,v:2107,c:"중국 음식점",g:"중식·일식",d:1960},
+  {n:"Plu",r:4.5,v:1364,c:"태국 음식점",g:"태국",d:888},
+  {n:"Sae Phun ข้าวหน้าไก่แซ่พุ้น",r:4.6,v:1364,c:"아시아 레스토랑",g:"태국",d:4751},
+  {n:"Aunglo by Yangrak",r:4.5,v:824,c:"아시아 레스토랑",g:"태국",d:1120},
+  {n:"Jim Thompson, A Thai Restaurant",r:4.8,v:4273,c:"태국 음식점",g:"태국",d:2249},
+  {n:"ร้านแจ่ม: Jamn_Bkk",r:4.7,v:93,c:"임시 휴업",g:"태국",d:4772,x:1},
+  {n:"레 라오",r:4.5,v:954,c:"태국 음식점",g:"태국",d:139},
+  {n:"프라야 다이닝",r:4.5,v:163,c:"태국 음식점",g:"태국",d:6016},
+  {n:"롱롯",r:4.7,v:4876,c:"임시 휴업",g:"태국",d:4953,x:1},
+  {n:"K. Panich Sticky Rice",r:4.4,v:3169,c:"디저트 전문점",g:"카페",d:4670},
+  {n:"Ten Suns",r:4.6,v:518,c:"중국 국수류 전문점",g:"국수",d:4930},
+  {n:"센트럴 엠버시",r:4.5,v:13081,c:"쇼핑몰",g:"쇼핑",d:2008},
+  {n:"센트럴 월드",r:4.5,v:78704,c:"쇼핑몰",g:"쇼핑",d:1907},
+  {n:"쭐라롱껀 대학교",r:4.7,v:1862,c:"공립대학교",g:"기타",d:1023},
+  {n:"코모 메트로폴리탄 방콕",r:4.7,v:1340,c:"5성급 호텔",g:"기타",d:817},
+  {n:"레 라오 (2호점)",r:4.5,v:2581,c:"태국 음식점",g:"태국",d:5825},
+  {n:"Karun Thai Tea ICONSIAM",r:4.4,v:95,c:"카페",g:"카페",d:2669},
+  {n:"Karun Thai Tea Park Silom",r:4.2,v:43,c:"카페",g:"카페",d:254},
+  {n:"짜런쌩 씰롬",r:4.4,v:4622,c:"태국 음식점",g:"태국",d:2110},
+  {n:"The Japanese Highball Bar 1923 Krung Thep Thonglor",r:4.9,v:470,c:"술집",g:"술집",d:5149},
+  {n:"ALLO HOUSE",r:4.4,v:220,c:"커피숍/커피 전문점",g:"카페",d:907},
+  {n:"Giglio Trattoria Fiorentina",r:4.5,v:809,c:"이탈리아 음식점",g:"양식",d:1254},
+  {n:"FV",r:4.5,v:483,c:"카페",g:"카페",d:3298},
+  {n:"A Pink Rabbit + Bob",r:4.5,v:972,c:"케이크 전문점",g:"카페",d:null},
+  {n:"Someday In Copenhagen",r:4.5,v:273,c:"커피숍/커피 전문점",g:"카페",d:2187},
+  {n:"The Office Thonglor",r:4.2,v:577,c:"카페",g:"카페",d:5339},
+  {n:"몬 놈쏫",r:4.4,v:6297,c:"제과점",g:"카페",d:1714},
+  {n:"사니스 방콕",r:4.5,v:3740,c:"카페",g:"카페",d:2391},
+  {n:"히어 하이",r:4.4,v:3982,c:"해산물 요리 전문식당",g:"태국",d:5548},
+  {n:"와타나 파닛",r:4.2,v:4822,c:"태국 음식점",g:"태국",d:5717},
+  {n:"룽르엉",r:4.4,v:9368,c:"국수 전문점",g:"국수",d:null},
+  {n:"노스이스트",r:4.4,v:4049,c:"태국 음식점",g:"태국",d:808},
+  {n:"히어 하이 시암 파라곤점",r:4.2,v:408,c:"아시아 레스토랑",g:"태국",d:null},
+  {n:"깝카우 깝쁠라",r:4.1,v:176,c:"태국 음식점",g:"태국",d:3541},
+  {n:"크루아압쏜 빠뚜피점",r:4.9,v:3102,c:"태국 음식점",g:"태국",d:null},
+  {n:"롱씨포차나",r:4.4,v:1872,c:"태국 음식점",g:"태국",d:null},
+  {n:"EAGLE NEST Rooftop Bar",r:4.3,v:1763,c:"술집",g:"술집",d:null},
+  {n:"BOONSIRI Thaifood Bangkok",r:4.7,v:622,c:"태국 음식점",g:"태국",d:null},
+  {n:"팁사마이",r:4.2,v:12615,c:"국수 전문점",g:"국수",d:4141},
+  {n:"쿤댕 꾸어이짭 유안(끈적국수)",r:4.4,v:4072,c:"국수 전문점",g:"국수",d:null},
+  {n:"Mug jee",r:4.6,v:336,c:"술집",g:"술집",d:5044},
+  {n:"Lost in Thaislation",r:4.8,v:261,c:"술집",g:"술집",d:null},
+  {n:"마담 무써",r:4.3,v:3245,c:"태국 음식점",g:"태국",d:5625},
+  {n:"팁싸마이 아이콘시암점",r:3.9,v:1182,c:"태국 음식점",g:"태국",d:null},
+  {n:"크루아 압쏜 딘소점",r:4.3,v:3932,c:"태국 음식점",g:"태국",d:4571},
+  {n:"Tor-Tom-Ton",r:4.2,v:256,c:"태국 음식점",g:"태국",d:2811},
+  {n:"Nai Soie Beef Noodle",r:3.9,v:3759,c:"국수 전문점",g:"국수",d:null},
+  {n:"찌라옌타포 (어묵국수)",r:4.3,v:637,c:"중국 국수류 전문점",g:"국수",d:null},
+  {n:"까이텃 쩨끼 (폴로 닭튀김)",r:4.3,v:3835,c:"태국 음식점",g:"태국",d:1223},
+  {n:"e-ga LAB Dusit Central Park",r:4.3,v:28,c:"태국 음식점",g:"태국",d:339},
+  {n:"Moo Moo Eatery",r:4.6,v:439,c:"태국 음식점",g:"태국",d:null},
+  {n:"크루아 압쏜 원방콕점",r:4.6,v:355,c:"태국 음식점",g:"태국",d:1301},
+  {n:"쏨분 씨푸드",r:4.2,v:6660,c:"해산물 요리 전문식당",g:"태국",d:2092},
+  {n:"On Lok Yun",r:4.5,v:2326,c:"아침식사 전문 식당",g:"카페",d:4174},
+  {n:"싯 앤 원더",r:4.5,v:2014,c:"태국 음식점",g:"태국",d:4897},
+  {n:"Beast & Butter : Burgers & Beers (Thong Lo)",r:4.6,v:974,c:"햄버거 전문점",g:"양식",d:null},
+  {n:"149 Sathon Soi 12 Alley",r:null,v:null,c:"주소",g:"기타",d:1467},
+  {n:"나이엑 롤 누들",r:4.4,v:4813,c:"국수 전문점",g:"국수",d:2946},
+  {n:"Barney’s Burger Joint Sukhumvit 23",r:4.7,v:662,c:"햄버거 전문점",g:"양식",d:3158},
+  {n:"SURIYA COFFEE (WAT KLANG MARKET)",r:4.6,v:420,c:"커피숍/커피 전문점",g:"카페",d:5846},
+  {n:"홍씨앙꽁",r:4.4,v:4191,c:"카페",g:"카페",d:2596},
+  {n:"GLIG CAFE",r:4.5,v:607,c:"카페",g:"카페",d:4522},
+  {n:"빠톰 오가닉 리빙",r:4.2,v:1572,c:"카페",g:"카페",d:4865},
+  {n:"No Drama Burger - Bangkok Premium Smash Burger",r:4.5,v:415,c:"햄버거 전문점",g:"양식",d:848},
+  {n:"The Toast Lady",r:4.7,v:149,c:"아침식사 전문 식당",g:"카페",d:2260},
+  {n:"팟타이 파이 타 루",r:4.1,v:1787,c:"태국 음식점",g:"태국",d:4720},
+  {n:"Boonlert Egg noodle",r:4.4,v:545,c:"중국 국수류 전문점",g:"국수",d:4125},
+  {n:"Bangkok Heightz Rooftop (Restaurant & Bar 39th floor)",r:4.8,v:3279,c:"루프탑 바",g:"술집",d:3018},
+  {n:"The Meatchop Butcher & Spirits",r:4.7,v:617,c:"스테이크 전문점",g:"양식",d:792},
+  {n:"Chenin Restaurant",r:4.6,v:1648,c:"양식 레스토랑",g:"양식",d:3533},
+  {n:"PST Bangkok (Pizza Studio Tamaki)",r:4.2,v:531,c:"피자 전문점",g:"양식",d:4514},
+  {n:"Skyline Film at River City Bangkok",r:4.4,v:25,c:"야외 영화관",g:"기타",d:2357},
+  {n:"애드히어 블루스바",r:4.6,v:1274,c:"재즈·블루스 바",g:"술집",d:5388},
+  {n:"꽝시푸드",r:4.4,v:4572,c:"해산물 요리 전문식당",g:"태국",d:3329},
+  {n:"비터맨",r:4.2,v:1784,c:"양식 레스토랑",g:"양식",d:637}
 ];
 
 (function () {
@@ -434,15 +437,18 @@ const PL = [
   const cnt  = document.getElementById('pcnt');
   const q    = document.getElementById('pq');
   const cats = document.getElementById('pcats');
+  const NEAR = 1000;   // 숙소 반경 1km = 도보 15분
   const order = ['태국','국수','양식','중식·일식','카페','술집','쇼핑','기타'];
   const groups = order.filter(g => PL.some(p => p.g === g));
-  const all = ['전체', ...groups];
+  const all = ['전체', '숙소 근처', ...groups];
   let active = '전체';
 
   all.forEach(c => {
     const b = document.createElement('button');
     b.className = 'filter-btn' + (c === '전체' ? ' active' : '');
-    const n = c === '전체' ? PL.length : PL.filter(p => p.g === c).length;
+    const n = c === '전체' ? PL.length
+            : c === '숙소 근처' ? PL.filter(p => p.d != null && p.d <= NEAR).length
+            : PL.filter(p => p.g === c).length;
     b.textContent = `${c} ${n}`;
     b.addEventListener('click', () => {
       active = c;
@@ -454,16 +460,19 @@ const PL = [
 
   function render() {
     const s = q.value.trim().toLowerCase();
-    const rows = PL.filter(p =>
-      (active === '전체' || p.g === active) &&
+    let rows = PL.filter(p =>
+      (active === '전체' || (active === '숙소 근처' ? (p.d != null && p.d <= NEAR) : p.g === active)) &&
       (!s || (p.n + p.c + p.g).toLowerCase().includes(s))
     );
-    cnt.textContent = `${rows.length} / ${PL.length} 곳`;
+    if (active === '숙소 근처') rows = rows.slice().sort((a, b) => a.d - b.d);
+    cnt.textContent = active === '숙소 근처'
+      ? `숙소에서 ${NEAR/1000} km 이내 ${rows.length}곳 · 가까운 순`
+      : `${rows.length} / ${PL.length} 곳`;
     list.innerHTML = rows.length ? rows.map(p => {
       const url = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(p.n + ' Bangkok');
-      return `<a class="place-card${p.x ? ' closed' : ''}" href="${url}" target="_blank" rel="noopener noreferrer">
+      return `<a class="place-card${p.x ? ' closed' : ''}${p.d != null && p.d <= NEAR ? ' near' : ''}" href="${url}" target="_blank" rel="noopener noreferrer">
         <div class="pn">${p.n}</div>
-        <div class="pc">${p.c}</div>
+        <div class="pc">${p.c}${p.d != null ? ` · 숙소 ${p.d < 1000 ? p.d + ' m' : (p.d/1000).toFixed(1) + ' km'}` : ''}</div>
         ${p.x ? '<div class="badge-closed">임시 휴업</div>' : ''}
         <div class="pr">${p.r == null
             ? '<span class="rv">평점 없음 · 저장된 주소</span>'
